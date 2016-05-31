@@ -6,8 +6,6 @@ import me.yifeiyuan.climb.data.GankDaily;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
-import yfy.github.stair.data.GAndroid;
-import yfy.github.stair.data.GankDaily;
 
 
 /**
