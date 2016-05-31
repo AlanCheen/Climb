@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    defaultConfig {
+        applicationId "me.yifeiyuan.climb"
+        minSdkVersion 21
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support:support-annotations:23.2.1'
+
+
+    compile rootProject.ext.appcompact
+    compile rootProject.ext.design
+    compile rootProject.ext.recyclerview
+    compile rootProject.ext.cardview
+
+    compile rootProject.ext.eventbus
+
+    compile rootProject.ext.rxjava
+    compile rootProject.ext.rxandroid
+    compile rootProject.ext.rxbinding
+
+    compile rootProject.ext.glide
+
+    compile rootProject.ext.butterknife
+    compile rootProject.ext.okhttp
+    compile rootProject.ext.logginginterceptor
+    compile rootProject.ext.retrofit
+    compile rootProject.ext.gsonconverter
+    compile rootProject.ext.rxjavaadapter
+
+    compile rootProject.ext.circleimageview
+    compile rootProject.ext.kenburnsview
+    compile rootProject.ext.photoview
+
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+    compile 'me.yifeiyuan.utils:utils:0.1.2'
+}
