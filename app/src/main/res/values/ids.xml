@@ -3,4 +3,5 @@
     <item name="collapsing_toolbar" type="id"/>
     <item name="toolbar" type="id"/>
     <item name="appbar" type="id"/>
+    <item name="container" type="id"/>
 </resources>

@@ -9,8 +9,12 @@ android {
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.x057lap3l
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -28,8 +32,8 @@ android {
     productFlavors {
 
         Github {
-            manifestPlaceholders =[
-                    UMENG_CHANNEL : "Github"
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Github"
             ]
         }
 
@@ -38,11 +42,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support:support-annotations:23.2.1'
 
 
     compile rootProject.ext.appcompact
@@ -69,7 +68,13 @@ dependencies {
     compile rootProject.ext.kenburnsview
     compile rootProject.ext.photoview
 
-    compile 'com.umeng.analytics:analytics:latest.integration'
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'me.yifeiyuan.utils:utils:0.1.2'
+    compile 'com.android.support:support-v4:23.2.1'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support:support-annotations:23.2.1'
 }

@@ -6,7 +6,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
 
 
@@ -34,7 +33,6 @@ public abstract class AppBarActivity extends BaseActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
         setupToolbar();
     }
 

@@ -9,6 +9,7 @@ import me.yifeiyuan.climb.BuildConfig;
 import me.yifeiyuan.climb.data.GAndroid;
 import me.yifeiyuan.climb.data.GankConfig;
 import me.yifeiyuan.climb.data.GankDaily;
+import me.yifeiyuan.climb.data.SplashEntity;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -38,6 +39,7 @@ public class Api {
     }
 
     private final GankApi mGankApi;
+    private final ZhiHuApi mZhiHuApi;
 
     private Api() {
 
@@ -65,16 +67,9 @@ public class Api {
                 .client(mOkHttpClient)
                 .build();
 
-//        RxJavaPlugins.getInstance().registerObservableExecutionHook(new RxJavaObservableExecutionHook() {
-//            @Override
-//            public <T> Observable.OnSubscribe<T> onSubscribeStart(Observable<? extends T> observableInstance, Observable.OnSubscribe<T> onSubscribe) {
-//                //很遗憾 不能完全这么做
-//                observableInstance.subscribeOn(AndroidSchedulers.mainThread());
-//                return super.onSubscribeStart(observableInstance, onSubscribe);
-//            }
-//        });
-
         mGankApi = retrofit.create(GankApi.class);
+
+        mZhiHuApi = retrofit.create(ZhiHuApi.class);
 
     }
 
@@ -90,4 +85,7 @@ public class Api {
        return mGankApi.getDaily(year,month,day);
    }
 
+    public Observable<SplashEntity> getWel() {
+        return mZhiHuApi.getWel();
+    }
 }
