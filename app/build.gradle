@@ -68,10 +68,10 @@ dependencies {
     compile rootProject.ext.kenburnsview
     compile rootProject.ext.photoview
 
+    compile rootProject.ext.umenganalytics
+    compile rootProject.ext.utils
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'me.yifeiyuan.utils:utils:0.1.2'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
     compile 'com.android.support:support-v4:23.2.1'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'

@@ -1,16 +1,32 @@
 package me.yifeiyuan.climb;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import me.yifeiyuan.climb.base.AppBarActivity;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppBarActivity implements NavigationView.OnNavigationItemSelectedListener {
+import butterknife.Bind;
+import me.yifeiyuan.climb.base.BaseActivity;
+import me.yifeiyuan.climb.base.BaseFragment;
+
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    @Bind(R.id.fab)
+    FloatingActionButton mFab;
+    @Bind(R.id.nav_view)
+    NavigationView mNavView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected int getLayoutId() {
@@ -25,15 +41,13 @@ public class MainActivity extends AppBarActivity implements NavigationView.OnNav
     @Override
     protected void initView(Bundle savedInstanceState) {
         setupDrawer();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavView.setNavigationItemSelectedListener(this);
     }
 
     private void setupDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
 
@@ -89,8 +103,28 @@ public class MainActivity extends AppBarActivity implements NavigationView.OnNav
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    private class FragAdapter extends FragmentPagerAdapter{
+
+        List<BaseFragment> mFragments = new ArrayList<>();
+        List<String> mTitles = new ArrayList<>();
+        public FragAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+    }
+
 }

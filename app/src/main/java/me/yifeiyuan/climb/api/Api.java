@@ -19,34 +19,27 @@ import rx.Observable;
 import rx.schedulers.Schedulers;
 
 /**
- * Stair github:  https://github.com/AlanCheen/Stair
- * Created by 程序亦非猿 (http://weibo.com/alancheeen)
- * on 15/10/8
+ * Created by 程序亦非猿 on 16/7/1.
  */
 public class Api {
+    private static final String TAG = "Ap";
 
-    private volatile static Api sApi;
+    public static final Api getIns() {
+        return SingletonHolder.INSTANCE;
+    }
 
-    public static Api getIns() {
-        if (sApi == null) {
-            synchronized (Api.class) {
-                if (null == sApi) {
-                    sApi = new Api();
-                }
-            }
-        }
-        return sApi;
+    private static class SingletonHolder {
+        private static final Api INSTANCE = new Api();
     }
 
     private final GankApi mGankApi;
     private final ZhiHuApi mZhiHuApi;
 
     private Api() {
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(30_000, TimeUnit.MILLISECONDS)
-                .readTimeout(30_000, TimeUnit.SECONDS)
-                .writeTimeout(30_000, TimeUnit.SECONDS);
+                .readTimeout(30_000, TimeUnit.MILLISECONDS)
+                .writeTimeout(30_000, TimeUnit.MILLISECONDS);
 
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -70,10 +63,10 @@ public class Api {
         mGankApi = retrofit.create(GankApi.class);
 
         mZhiHuApi = retrofit.create(ZhiHuApi.class);
-
     }
 
-    public  Observable<GAndroid> getAndroid(int page) {
+
+    public Observable<GAndroid> getAndroid(int page) {
         return mGankApi.getAndroid(page);
     }
 
@@ -81,9 +74,9 @@ public class Api {
         return mGankApi.getMeizi(page);
     }
 
-   public Observable<GankDaily> getDaily(int year, int month, int day){
-       return mGankApi.getDaily(year,month,day);
-   }
+    public Observable<GankDaily> getDaily(int year, int month, int day){
+        return mGankApi.getDaily(year,month,day);
+    }
 
     public Observable<SplashEntity> getWel() {
         return mZhiHuApi.getWel();

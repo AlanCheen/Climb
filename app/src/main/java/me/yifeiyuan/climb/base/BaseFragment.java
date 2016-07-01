@@ -3,6 +3,7 @@ package me.yifeiyuan.climb.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -58,6 +59,10 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    protected  <T> T find(@IdRes int id){
+        return (T) mRootView.findViewById(id);
     }
 }
 

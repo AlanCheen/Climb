@@ -1,4 +1,4 @@
-package me.yifeiyuan.climb.feature.splash;
+package me.yifeiyuan.climb.module.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import me.yifeiyuan.climb.MainActivity;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.data.SplashEntity;
 import rx.Observable;
