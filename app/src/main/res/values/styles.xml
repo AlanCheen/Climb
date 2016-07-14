@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
         <!--<item name="android:windowBackground">@null</item>-->
     </style>
 
@@ -13,9 +14,12 @@
     </style>
 
     <style name="SplashTheme" parent="BaseTheme">
+        <!--没有好看的图-0- -->
         <!--<item name="android:windowBackground">@drawable/splash</item>-->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

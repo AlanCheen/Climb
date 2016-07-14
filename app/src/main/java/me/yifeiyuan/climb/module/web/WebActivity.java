@@ -14,11 +14,11 @@ import android.widget.ProgressBar;
 
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.base.ToolbarActivity;
+import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.ui.view.OPWebView;
 import me.yifeiyuan.climb.ui.widget.T;
 
-public class WebActivity extends ToolbarActivity {
+public class WebActivity extends BaseActivity {
 
     public static final String KEY_URL = "key_url";
 
