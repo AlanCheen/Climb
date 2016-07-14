@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2016, 程序亦非猿
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package me.yifeiyuan.climb.base;
 
 
@@ -28,7 +44,7 @@ public abstract class BaseFragment extends Fragment {
     protected View mRootView;
 
     public Activity mActivity;
-    protected CompositeSubscription mSubscription;
+    protected CompositeSubscription mSubscriptions;
 
     @Nullable
     @Override
@@ -36,12 +52,13 @@ public abstract class BaseFragment extends Fragment {
         mRootView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, mRootView);
         mActivity = getActivity();
-        mSubscription = new CompositeSubscription();
+        mSubscriptions = new CompositeSubscription();
         Bundle args = getArguments();
         if (null != args) {
             initArguments(args);
         }
-        init(savedInstanceState);
+        initData();
+        initView(savedInstanceState);
         requestData(false, true);
         return mRootView;
     }
@@ -50,7 +67,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected void initArguments(@NonNull Bundle args){}
 
-    protected abstract void init(@Nullable Bundle savedInstanceState);
+    protected abstract void initData();
+    protected abstract void initView(@Nullable Bundle savedInstanceState);
 
     protected abstract void requestData(boolean isForce, boolean isRefresh);
 
@@ -67,8 +85,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        if (null!=mSubscription&&!mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
+        if (null!= mSubscriptions &&!mSubscriptions.isUnsubscribed()) {
+            mSubscriptions.unsubscribe();
         }
     }
 

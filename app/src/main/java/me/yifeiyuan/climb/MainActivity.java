@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.Bind;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.base.BaseFragment;
+import me.yifeiyuan.climb.module.gank.AndFragment;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,8 +41,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         setupDrawer();
         mNavView.setNavigationItemSelectedListener(this);
+
+        if (null == savedInstanceState) {
+            addFragment(AndFragment.newInstance(),AndFragment.TAG);
+        }
     }
 
     private void setupDrawer() {
@@ -53,9 +59,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -112,9 +117,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         List<BaseFragment> mFragments = new ArrayList<>();
         List<String> mTitles = new ArrayList<>();
+
         public FragAdapter(FragmentManager fm) {
             super(fm);
         }
+
 
         @Override
         public Fragment getItem(int position) {

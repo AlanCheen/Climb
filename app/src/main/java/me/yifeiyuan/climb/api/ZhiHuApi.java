@@ -13,6 +13,7 @@ import rx.Observable;
  */
 public interface ZhiHuApi {
 
+
     @GET("http://news-at.zhihu.com/api/4/start-image/1080*1776")
     Observable<SplashEntity> getWel();
 }
