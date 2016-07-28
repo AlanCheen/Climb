@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.Bind;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.base.BaseFragment;
-import me.yifeiyuan.climb.module.gank.AndFragment;
+import me.yifeiyuan.climb.module.gank.MeiziFragment;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,13 +36,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initData() {
-
+        overridePendingTransition(R.anim.fade_in,R.anim.no_anim);
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-//        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
         setupDrawer();
 
@@ -51,7 +50,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mNavView.setNavigationItemSelectedListener(this);
 
         if (null == savedInstanceState) {
-            addFragment(AndFragment.newInstance(),AndFragment.TAG);
+//            addFragment(AndFragment.newInstance(),AndFragment.TAG);
+            addFragment(MeiziFragment.newInstance(),MeiziFragment.TAG);
         }
     }
 

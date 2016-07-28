@@ -16,10 +16,87 @@
 
 package me.yifeiyuan.climb.module.gank;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
+import me.yifeiyuan.climb.data.GAndroid;
+import me.yifeiyuan.climb.data.GankEntity;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by 程序亦非猿 on 16/7/28.
  */
-public class MeiziFragment extends RefreshFragment{
+public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
+
+    public static final String TAG = "MeiziFragment";
+
+    private GankMeiziAdapter mAdapter;
+    private int mCurrPage = 1;
+    private ArrayList<GankEntity> mDatas;
+    private boolean canLoadmore;
+
+    public static MeiziFragment newInstance() {
+        MeiziFragment fragment = new MeiziFragment();
+        return fragment;
+    }
+
+    @Override
+    protected void initData() {
+        mDatas = new ArrayList<>();
+        mAdapter = new GankMeiziAdapter(mActivity, mDatas);
+    }
+
+    @Override
+    protected GankMeiziAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    protected void requestData(boolean isForce, boolean isRefresh) {
+
+        if (isRefresh) {
+            mCurrPage = 1;
+            setRefreshing(true);
+        } else {
+            mCurrPage++;
+        }
+
+        Observable<GAndroid> android = Api.getIns().getMeizi(mCurrPage);
+        android.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GAndroid>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "onCompleted: ");
+                        setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError() called with: " + "e = [" + e + "]");
+                        setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onNext(GAndroid gAndroid) {
+                        List<GankEntity> entities = gAndroid.results;
+                        canLoadmore = entities.size() >= 0;
+                        if (mCurrPage == 1) {
+                            mDatas.clear();
+                        }else {
+                            setLoadMoreComplete();
+                        }
+                        mDatas.addAll(entities);
+                        mAdapter.notifyDataSetChanged();
+                        Log.d(TAG, "onNext() called with: " + "gAndroid = [" + gAndroid + "]");
+                    }
+                });
+    }
 }

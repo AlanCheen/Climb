@@ -16,4 +16,5 @@ public class GankConfig {
     public static final String ANDROID = "Android";
 
     public static final int PAGE_COUNT = 30;
+    public static final int MEIZI_COUNT = 20;
 }
