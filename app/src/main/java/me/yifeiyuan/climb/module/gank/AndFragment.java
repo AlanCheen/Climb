@@ -19,6 +19,7 @@ package me.yifeiyuan.climb.module.gank;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -72,11 +73,11 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
         if (isRefresh) {
             mCurrPage = 1;
             setRefreshing(true);
-        }else{
-            mCurrPage ++;
+        } else {
+            mCurrPage++;
         }
         Api.getIns().getAndroid(mCurrPage)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<GAndroid>() {
                     @Override
@@ -86,6 +87,15 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
 
                     @Override
                     public void onError(Throwable e) {
+
+                        if (mCurrPage != 1) {
+                            setLoadMoreComplete();
+                        }
+                        Snackbar snackbar = Snackbar.make(mRootView, "ooops 出错啦!", Snackbar.LENGTH_LONG);
+                        snackbar.setAction("重试", v -> {
+                            mCurrPage--;
+                            requestData(isForce, isRefresh);
+                        });
                     }
 
                     @Override
@@ -94,6 +104,8 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
 
                         if (mCurrPage == 1) {
                             mDatas.clear();
+                        } else {
+                            setLoadMoreComplete();
                         }
                         mDatas.addAll(entity.results);
                         mAdapter.notifyDataSetChanged();

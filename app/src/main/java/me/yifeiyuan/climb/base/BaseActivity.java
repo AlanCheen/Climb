@@ -10,16 +10,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.umeng.analytics.MobclickAgent;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
+import me.yifeiyuan.climb.tools.trace.Agent;
+import me.yifeiyuan.swipeback.SwipeBackActivity;
 
 
 /**
@@ -30,7 +29,7 @@ import me.yifeiyuan.climb.R;
  * 设置title
  * 处理左上返回按钮事件
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
 
     protected Context mContext;
 
@@ -65,13 +64,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
+        Agent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
+        Agent.onPause(this);
     }
 
     @Override

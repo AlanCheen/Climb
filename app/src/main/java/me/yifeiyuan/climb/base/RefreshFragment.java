@@ -13,14 +13,15 @@ import android.support.v7.widget.RecyclerView;
 
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
+import me.yifeiyuan.climb.ui.view.OPRecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OPRecyclerView.OnLoadMoreListener{
 
     @Bind(R.id.rv)
-    protected RecyclerView mRv;
+    protected OPRecyclerView mRv;
 
     @Bind(R.id.refresh)
     protected SwipeRefreshLayout mRefresh;
@@ -41,7 +42,13 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
     @CallSuper
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
-        mRefresh.setColorSchemeColors(R.color.colorAccent);
+        mRefresh.setColorSchemeResources(
+                android.R.color.holo_blue_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_red_light);
+
+        mRv.setOnLoadMoreListener(this);
         mRefresh.setOnRefreshListener(this);
         mRv.setLayoutManager(getLayoutManager());
         mRv.setAdapter(getAdapter());
@@ -52,8 +59,17 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
         requestData(true, true);
     }
 
+    @Override
+    public void onLoadMore() {
+        requestData(false, false);
+    }
+
     protected void setRefreshing(boolean refreshing) {
         mRefresh.setRefreshing(refreshing);
+    }
+
+    protected void setLoadMoreComplete() {
+        mRv.setLoadMoreComplete();
     }
 
     protected abstract A getAdapter();

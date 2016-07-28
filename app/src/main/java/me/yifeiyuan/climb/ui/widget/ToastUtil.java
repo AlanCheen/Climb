@@ -14,34 +14,23 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.base;
+package me.yifeiyuan.climb.ui.widget;
 
 import android.content.Context;
-
-import me.yifeiyuan.climb.ui.widget.ToastUtil;
-import rx.Subscriber;
+import android.widget.Toast;
 
 /**
  * Created by 程序亦非猿 on 16/7/14.
  */
-public class BaseSubscriber<T> extends Subscriber<T>{
+public class ToastUtil {
 
-    protected Context mContext;
-    public BaseSubscriber(Context cxt) {
-        mContext = cxt;
-    }
-    @Override
-    public void onCompleted() {
+    private static Toast sToast ;
 
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        ToastUtil.show(mContext,e.getMessage());
-    }
-
-    @Override
-    public void onNext(T t) {
-
+    public static void show(Context cxt, CharSequence content) {
+        if (null == sToast) {
+            sToast = Toast.makeText(cxt, content, Toast.LENGTH_SHORT);
+        }
+        sToast.setText(content);
+        sToast.show();
     }
 }

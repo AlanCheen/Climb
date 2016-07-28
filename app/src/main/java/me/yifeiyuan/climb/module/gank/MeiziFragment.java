@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015, 程序亦非猿
+ * Copyright (C) 2016, 程序亦非猿
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.ui.widget;
+package me.yifeiyuan.climb.module.gank;
 
-import android.content.Context;
-import android.widget.Toast;
+import me.yifeiyuan.climb.base.RefreshFragment;
 
 /**
- * Created by 程序亦非猿 on 16/7/14.
+ * Created by 程序亦非猿 on 16/7/28.
  */
-public class T {
-
-    private static Toast sToast ;
-
-    public static void show(Context cxt, String content) {
-        if (null != sToast) {
-            sToast.cancel();
-        }
-        sToast = Toast.makeText(cxt, content, Toast.LENGTH_SHORT);
-        sToast.show();
-    }
+public class MeiziFragment extends RefreshFragment{
 }

@@ -71,6 +71,11 @@ dependencies {
     compile rootProject.ext.umenganalytics
     compile rootProject.ext.utils
 
+//    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
+    compile project(':swipeback')
+
+
 //    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'

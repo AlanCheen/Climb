@@ -28,9 +28,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.umeng.analytics.MobclickAgent;
-
 import butterknife.ButterKnife;
+import me.yifeiyuan.climb.tools.trace.Agent;
 import rx.subscriptions.CompositeSubscription;
 
 
@@ -74,11 +73,11 @@ public abstract class BaseFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-        MobclickAgent.onPageStart(TAG); //统计页面
+        Agent.onPageStart(TAG); //统计页面
     }
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(TAG);
+        Agent.onPageEnd(TAG);
     }
 
     @Override

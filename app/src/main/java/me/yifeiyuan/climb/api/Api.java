@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
 public class Api {
     private static final String TAG = "Ap";
 
-    public static final Api getIns() {
+    public static Api getIns() {
         return SingletonHolder.INSTANCE;
     }
 

@@ -61,7 +61,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
         holder.itemView.setOnClickListener(v -> {
             WebActivity.comeOn(mContext,entity.url);
             if (null != mOnItemClickListener) {
-                mOnItemClickListener.onItemCliek(entity);
+                mOnItemClickListener.onItemClick(entity);
             }
         });
     }
@@ -88,7 +88,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     private onItemClickListener mOnItemClickListener;
 
     public interface onItemClickListener {
-        void onItemCliek(GankEntity entity);
+        void onItemClick(GankEntity entity);
     }
 
 }

@@ -16,7 +16,7 @@ import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.ui.view.OPWebView;
-import me.yifeiyuan.climb.ui.widget.T;
+import me.yifeiyuan.climb.ui.widget.ToastUtil;
 
 public class WebActivity extends BaseActivity {
 
@@ -52,6 +52,9 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onProgressChanged(int newProgress) {
 
+                if (null == mProgressBar) {
+                    return;
+                }
                 if (newProgress == 100) {
                     mProgressBar.setVisibility(View.GONE);
                 } else {
@@ -112,22 +115,25 @@ public class WebActivity extends BaseActivity {
                 Uri uri = Uri.parse(mUrl);
                 i.setData(uri);
                 if (i.resolveActivity(getPackageManager()) != null) {
-                    startActivity(Intent.createChooser(i,"请皇上翻盘"));
+                    startActivity(Intent.createChooser(i,"请选择浏览器"));
                 }
                 break;
 
             case R.id.share:
-                T.show(mContext,"Coming soon");
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, mWebview.getUrl());
+                startActivity(Intent.createChooser(share,"分享当前链接给"));
                 break;
 
             case R.id.collect:
-                T.show(mContext,"Coming soon");
+                ToastUtil.show(mContext,"Coming ");
                 break;
 
             case R.id.copy_link:
                 ClipboardManager manager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 manager.setPrimaryClip(ClipData.newPlainText("URL",mUrl));
-                T.show(mContext,"Url复制成功");
+                ToastUtil.show(mContext,"Url复制成功");
                 break;
         }
         return super.onOptionsItemSelected(item);

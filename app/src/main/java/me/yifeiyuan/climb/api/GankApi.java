@@ -9,9 +9,9 @@ import rx.Observable;
 
 
 /**
- * Stair github:  https://github.com/AlanCheen/Stair
+ * api see: http://gank.io/api
+ *
  * Created by 程序亦非猿 (http://weibo.com/alancheeen)
- * on 15/10/8
  */
 public interface GankApi {
 

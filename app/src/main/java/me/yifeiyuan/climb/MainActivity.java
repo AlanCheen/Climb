@@ -41,8 +41,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+//        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
         setupDrawer();
+
+        getSwipeBackLayout().setEnableGesture(false);
+
         mNavView.setNavigationItemSelectedListener(this);
 
         if (null == savedInstanceState) {
@@ -107,7 +112,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_send) {
 
         }
-
+        item.setChecked(true);
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
