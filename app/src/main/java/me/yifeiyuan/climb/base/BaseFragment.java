@@ -71,10 +71,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void requestData(boolean isForce, boolean isRefresh);
 
+    @Override
     public void onResume() {
         super.onResume();
         Agent.onPageStart(TAG); //统计页面
     }
+
+    @Override
     public void onPause() {
         super.onPause();
         Agent.onPageEnd(TAG);

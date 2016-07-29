@@ -6,6 +6,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +15,10 @@ import android.support.v7.widget.RecyclerView;
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.ui.view.OPRecyclerView;
+import rx.Subscriber;
 
 /**
+ *
  * A simple {@link Fragment} subclass.
  */
 public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OPRecyclerView.OnLoadMoreListener{
@@ -34,11 +37,21 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
     @Bind(R.id.col)
     protected CoordinatorLayout mCol;
 
+    /**
+     * 页码
+     */
+    protected int mCurrPage = 1;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.base_refresh_fragment;
     }
 
+    /**
+     * 处理公用的view的初始化
+     * @param savedInstanceState
+     */
     @CallSuper
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
@@ -76,5 +89,58 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
 
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+    }
+
+    @Override
+    protected void requestData(boolean isForce, boolean isRefresh) {
+        if (isRefresh) {
+            mCurrPage = 1;
+            setRefreshing(true);
+        } else {
+            mCurrPage++;
+        }
+        onRequestData(isForce,isRefresh);
+    }
+
+    abstract protected void onRequestData(boolean isForce, boolean isRefresh);
+
+
+    /**
+     * 默认处理处理
+     * @param <T>
+     */
+    protected class RefreshSubscriber<T> extends Subscriber<T>{
+
+        boolean isForce;
+
+        boolean isRefresh;
+
+        public RefreshSubscriber(boolean isForce, boolean isRefresh) {
+            this.isForce = isForce;
+            this.isRefresh = isRefresh;
+        }
+
+        @Override
+        public void onCompleted() {
+            setRefreshing(false);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            setRefreshing(false);
+            if (mCurrPage != 1) {
+                setLoadMoreComplete();
+            }
+            Snackbar snackbar = Snackbar.make(mRootView, "ooops 出错啦!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("重试", v -> {
+                mCurrPage--;
+                requestData(isForce, isRefresh);
+            });
+        }
+
+        @Override
+        public void onNext(T t) {
+
+        }
     }
 }

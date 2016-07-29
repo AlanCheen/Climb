@@ -26,7 +26,6 @@ import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GAndroid;
 import me.yifeiyuan.climb.data.GankEntity;
 import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -38,7 +37,6 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     public static final String TAG = "MeiziFragment";
 
     private GankMeiziAdapter mAdapter;
-    private int mCurrPage = 1;
     private ArrayList<GankEntity> mDatas;
     private boolean canLoadmore;
 
@@ -59,31 +57,12 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     }
 
     @Override
-    protected void requestData(boolean isForce, boolean isRefresh) {
-
-        if (isRefresh) {
-            mCurrPage = 1;
-            setRefreshing(true);
-        } else {
-            mCurrPage++;
-        }
+    protected void onRequestData(boolean isForce, boolean isRefresh) {
 
         Observable<GAndroid> android = Api.getIns().getMeizi(mCurrPage);
         android.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GAndroid>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "onCompleted: ");
-                        setRefreshing(false);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(TAG, "onError() called with: " + "e = [" + e + "]");
-                        setRefreshing(false);
-                    }
-
+                .subscribe(new RefreshSubscriber<GAndroid>(isForce,isRefresh){
                     @Override
                     public void onNext(GAndroid gAndroid) {
                         List<GankEntity> entities = gAndroid.results;

@@ -19,7 +19,6 @@ package me.yifeiyuan.climb.module.gank;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GAndroid;
 import me.yifeiyuan.climb.data.GankEntity;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -68,36 +66,12 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     }
 
     @Override
-    protected void requestData(boolean isForce, boolean isRefresh) {
+    protected void onRequestData(boolean isForce, boolean isRefresh) {
 
-        if (isRefresh) {
-            mCurrPage = 1;
-            setRefreshing(true);
-        } else {
-            mCurrPage++;
-        }
         Api.getIns().getAndroid(mCurrPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<GAndroid>() {
-                    @Override
-                    public void onCompleted() {
-                        setRefreshing(false);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        if (mCurrPage != 1) {
-                            setLoadMoreComplete();
-                        }
-                        Snackbar snackbar = Snackbar.make(mRootView, "ooops 出错啦!", Snackbar.LENGTH_LONG);
-                        snackbar.setAction("重试", v -> {
-                            mCurrPage--;
-                            requestData(isForce, isRefresh);
-                        });
-                    }
-
+                .subscribe(new RefreshSubscriber<GAndroid>(isForce,isRefresh) {
                     @Override
                     public void onNext(GAndroid entity) {
                         canLoadmore = entity.results.size() >= 0;
