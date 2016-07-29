@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.Bind;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.base.BaseFragment;
-import me.yifeiyuan.climb.module.gank.MeiziFragment;
+import me.yifeiyuan.climb.module.gank.GankFragment;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,7 +51,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (null == savedInstanceState) {
 //            addFragment(AndFragment.newInstance(),AndFragment.TAG);
-            addFragment(MeiziFragment.newInstance(),MeiziFragment.TAG);
+//            addFragment(MeiziFragment.newInstance(),MeiziFragment.TAG);
+            addFragment(GankFragment.newInstance(),GankFragment.TAG);
         }
     }
 

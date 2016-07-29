@@ -27,6 +27,7 @@ import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GAndroid;
 import me.yifeiyuan.climb.data.GankEntity;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -40,7 +41,6 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     public static final String TAG = "AndFragment";
 
     private GankAdapter mAdapter;
-    private int mCurrPage = 1;
     private ArrayList<GankEntity> mDatas;
     private boolean canLoadmore;
 
@@ -66,9 +66,9 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     }
 
     @Override
-    protected void onRequestData(boolean isForce, boolean isRefresh) {
+    protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
 
-        Api.getIns().getAndroid(mCurrPage)
+        return Api.getIns().getAndroid(mCurrPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RefreshSubscriber<GAndroid>(isForce,isRefresh) {

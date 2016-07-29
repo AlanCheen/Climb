@@ -56,7 +56,7 @@ public class Api {
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GankConfig.URL_DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .client(mOkHttpClient)
                 .build();
 
@@ -65,6 +65,7 @@ public class Api {
         mZhiHuApi = retrofit.create(ZhiHuApi.class);
     }
 
+    // TODO: 16/7/29 compose
 
     public Observable<GAndroid> getAndroid(int page) {
         return mGankApi.getAndroid(page);
