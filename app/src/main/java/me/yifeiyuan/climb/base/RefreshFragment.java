@@ -7,19 +7,21 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.ui.view.OPRecyclerView;
 import rx.Subscriber;
+import rx.Subscription;
 
 /**
  *
- * A simple {@link Fragment} subclass.
+ * encapsulate refresh & loadmore
+ *
  */
 public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OPRecyclerView.OnLoadMoreListener{
 
@@ -99,11 +101,11 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
         } else {
             mCurrPage++;
         }
-        onRequestData(isForce,isRefresh);
+        Log.d(TAG,"TAG"+TAG+"requestData() called with: " + "isForce = [" + isForce + "], isRefresh = [" + isRefresh + "]");
+        addSubscription(onRequestData(isForce,isRefresh));
     }
 
-    abstract protected void onRequestData(boolean isForce, boolean isRefresh);
-
+    abstract protected Subscription onRequestData(boolean isForce, boolean isRefresh);
 
     /**
      * 默认处理处理
@@ -111,8 +113,9 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
      */
     protected class RefreshSubscriber<T> extends Subscriber<T>{
 
+        /**是否强制刷新*/
         boolean isForce;
-
+        /**是否是刷新*/
         boolean isRefresh;
 
         public RefreshSubscriber(boolean isForce, boolean isRefresh) {
@@ -136,6 +139,7 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
                 mCurrPage--;
                 requestData(isForce, isRefresh);
             });
+            snackbar.show();
         }
 
         @Override

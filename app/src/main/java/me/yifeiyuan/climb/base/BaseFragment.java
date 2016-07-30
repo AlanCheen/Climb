@@ -30,11 +30,12 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import me.yifeiyuan.climb.tools.trace.Agent;
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 
 /**
- *  Created by 程序亦非猿 on 16/5/31.
+ * Created by 程序亦非猿 on 16/5/31.
  */
 public abstract class BaseFragment extends Fragment {
 
@@ -58,15 +59,19 @@ public abstract class BaseFragment extends Fragment {
         }
         initData();
         initView(savedInstanceState);
-        requestData(false, true);
+        mRootView.post(() -> requestData(false, true));
         return mRootView;
     }
 
-    protected abstract @LayoutRes int getLayoutId();
+    protected abstract
+    @LayoutRes
+    int getLayoutId();
 
-    protected void initArguments(@NonNull Bundle args){}
+    protected void initArguments(@NonNull Bundle args) {
+    }
 
     protected abstract void initData();
+
     protected abstract void initView(@Nullable Bundle savedInstanceState);
 
     protected abstract void requestData(boolean isForce, boolean isRefresh);
@@ -87,13 +92,19 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        if (null!= mSubscriptions &&!mSubscriptions.isUnsubscribed()) {
+        if (null != mSubscriptions && !mSubscriptions.isUnsubscribed()) {
             mSubscriptions.unsubscribe();
         }
     }
 
+    protected void addSubscription(Subscription subscription) {
+        if (null != mSubscriptions) {
+            mSubscriptions.add(subscription);
+        }
+    }
 
-    protected final <T> T find(@IdRes int id){
+
+    protected final <T> T find(@IdRes int id) {
         return (T) mRootView.findViewById(id);
     }
 }

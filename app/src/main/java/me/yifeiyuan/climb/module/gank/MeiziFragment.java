@@ -25,7 +25,7 @@ import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GAndroid;
 import me.yifeiyuan.climb.data.GankEntity;
-import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -57,10 +57,10 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     }
 
     @Override
-    protected void onRequestData(boolean isForce, boolean isRefresh) {
+    protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
 
-        Observable<GAndroid> android = Api.getIns().getMeizi(mCurrPage);
-        android.subscribeOn(Schedulers.newThread())
+        return Api.getIns().getMeizi(mCurrPage)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RefreshSubscriber<GAndroid>(isForce,isRefresh){
                     @Override
