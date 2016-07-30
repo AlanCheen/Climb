@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 apply from: "config.properties"
+apply plugin: "checkstyle"
 
 buildscript {
     repositories {
@@ -23,4 +24,18 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+
+checkstyle {
+    toolVersion '6.1.1'
+    showViolations true
+}
+
+
+task checkStyle(type: Checkstyle) {
+    configFile file("config/checkstyle.xml")
+    source fileTree('src')
+    include '**/*.java'
+    exclude '**/gen/**'
 }
