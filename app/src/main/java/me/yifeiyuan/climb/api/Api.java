@@ -3,12 +3,15 @@ package me.yifeiyuan.climb.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import me.yifeiyuan.climb.BuildConfig;
 import me.yifeiyuan.climb.data.GAndroid;
+import me.yifeiyuan.climb.data.GIosEntity;
 import me.yifeiyuan.climb.data.GankConfig;
 import me.yifeiyuan.climb.data.GankDaily;
+import me.yifeiyuan.climb.data.RxResponse;
 import me.yifeiyuan.climb.data.SplashEntity;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -16,6 +19,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -71,15 +76,34 @@ public class Api {
         return mGankApi.getAndroid(page);
     }
 
-    public Observable<GAndroid> getMeizi(int page){
+    public Observable<List<GIosEntity>> getIos(int page) {
+        return apply(mGankApi.getIos(page));
+    }
+
+    public Observable<GAndroid> getMeizi(int page) {
         return mGankApi.getMeizi(page);
     }
 
-    public Observable<GankDaily> getDaily(int year, int month, int day){
-        return mGankApi.getDaily(year,month,day);
+    public Observable<GankDaily> getDaily(int year, int month, int day) {
+        return mGankApi.getDaily(year, month, day);
     }
 
     public Observable<SplashEntity> getWel() {
         return mZhiHuApi.getWel();
+    }
+
+    private <T> Observable<T> apply(Observable<RxResponse<T>> observable) {
+        return observable.timeout(10_000, TimeUnit.MILLISECONDS)
+                .flatMap(new PickResults<>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private class PickResults<T> implements Func1<RxResponse<T>, Observable<T>> {
+
+        @Override
+        public Observable<T> call(RxResponse<T> tRxResponse) {
+            return Observable.just(tRxResponse.results);
+        }
     }
 }

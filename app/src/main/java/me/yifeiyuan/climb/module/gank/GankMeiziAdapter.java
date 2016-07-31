@@ -29,7 +29,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.data.GankEntity;
+import me.yifeiyuan.climb.data.GAndEntity;
 import me.yifeiyuan.climb.ui.view.RatioImageView;
 
 /**
@@ -37,10 +37,10 @@ import me.yifeiyuan.climb.ui.view.RatioImageView;
  */
 public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.GankViewHolder>{
 
-    private List<GankEntity> mDatas;
+    private List<GAndEntity> mDatas;
     private Context mContext;
 
-    public GankMeiziAdapter(Context context, List<GankEntity> mDatas) {
+    public GankMeiziAdapter(Context context, List<GAndEntity> mDatas) {
         this.mContext = context;
         this.mDatas = mDatas;
     }
@@ -56,7 +56,7 @@ public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.Gank
     @Override
     public void onBindViewHolder(final GankViewHolder holder, int position) {
 
-        GankEntity entity = mDatas.get(position);
+        GAndEntity entity = mDatas.get(position);
 
         Glide.with(mContext)
                 .load(entity.url)
@@ -96,6 +96,6 @@ public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.Gank
     private onItemClickListener mOnItemClickListener;
 
     public interface onItemClickListener {
-        void onItemClick(GankViewHolder holder,GankEntity entity);
+        void onItemClick(GankViewHolder holder,GAndEntity entity);
     }
 }

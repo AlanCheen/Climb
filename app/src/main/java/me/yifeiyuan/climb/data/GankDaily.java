@@ -20,11 +20,11 @@ public class GankDaily {
     public ResultsEntity results;
 
     public static class ResultsEntity {
-        public List<GankEntity> iOS;
-        public List<GankEntity> Android;
-        public List<GankEntity> 瞎推荐;
-        public List<GankEntity> 拓展资源;
-        public List<GankEntity> 福利;
-        public List<GankEntity> 休息视频;
+        public List<GAndEntity> iOS;
+        public List<GAndEntity> Android;
+        public List<GAndEntity> 瞎推荐;
+        public List<GAndEntity> 拓展资源;
+        public List<GAndEntity> 福利;
+        public List<GAndEntity> 休息视频;
     }
 }

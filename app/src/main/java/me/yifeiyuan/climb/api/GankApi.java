@@ -15,9 +15,13 @@
  */
 package me.yifeiyuan.climb.api;
 
+import java.util.List;
+
 import me.yifeiyuan.climb.data.GAndroid;
+import me.yifeiyuan.climb.data.GIosEntity;
 import me.yifeiyuan.climb.data.GankConfig;
 import me.yifeiyuan.climb.data.GankDaily;
+import me.yifeiyuan.climb.data.RxResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -34,7 +38,7 @@ public interface GankApi {
     Observable<GAndroid> getAndroid(@Path("page") int page);
 
     @GET("data/iOS/"+ GankConfig.PAGE_COUNT+"/{page}")
-    Observable<GAndroid> getIos(@Path("page") int page);
+    Observable<RxResponse<List<GIosEntity>>> getIos(@Path("page") int page);
 
     @GET("data/all/"+ GankConfig.PAGE_COUNT+"/{page}")
     Observable<GAndroid> getAll(@Path("page") int page);

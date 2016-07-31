@@ -5,7 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.List;
+
+import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
+import me.yifeiyuan.climb.data.GIosEntity;
+import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +40,31 @@ public class IosFragment extends RefreshFragment {
         return null;
     }
 
+    /**
+     * http://stackoverflow.com/questions/2770321/what-is-a-raw-type-and-why-shouldnt-we-use-it
+     *
+     * @param isForce
+     * @param isRefresh
+     * @return
+     */
     @Override
-    protected void onRequestData(boolean isForce, boolean isRefresh) {
+    protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
+        return Api.getIns().getIos(mCurrPage).subscribe(new Subscriber<List<GIosEntity>>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<GIosEntity> gIosEntities) {
+
+            }
+        });
     }
 
 }

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GAndroid;
-import me.yifeiyuan.climb.data.GankEntity;
+import me.yifeiyuan.climb.data.GAndEntity;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -41,7 +41,7 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     public static final String TAG = "AndFragment";
 
     private GankAdapter mAdapter;
-    private ArrayList<GankEntity> mDatas;
+    private ArrayList<GAndEntity> mDatas;
     private boolean canLoadmore;
 
     public static AndFragment newInstance() {
