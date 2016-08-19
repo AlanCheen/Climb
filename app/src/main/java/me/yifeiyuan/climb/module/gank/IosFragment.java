@@ -3,14 +3,13 @@ package me.yifeiyuan.climb.module.gank;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
-import me.yifeiyuan.climb.data.GIosEntity;
-import rx.Subscriber;
+import me.yifeiyuan.climb.data.GankResponse;
+import me.yifeiyuan.climb.data.entity.GankEntity;
 import rx.Subscription;
 
 /**
@@ -18,7 +17,11 @@ import rx.Subscription;
  * Use the {@link IosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IosFragment extends RefreshFragment {
+public class IosFragment extends RefreshFragment<GankAdapter> {
+
+    private GankAdapter mAdapter;
+    private ArrayList<GankEntity> mDatas;
+    private boolean canLoadmore;
 
     /**
      * @return A new instance of fragment IosFragment.
@@ -32,12 +35,13 @@ public class IosFragment extends RefreshFragment {
 
     @Override
     protected void initData() {
-
+        mDatas = new ArrayList<>();
+        mAdapter = new GankAdapter(mActivity, mDatas);
     }
 
     @Override
-    protected RecyclerView.Adapter getAdapter() {
-        return null;
+    protected GankAdapter getAdapter() {
+        return mAdapter;
     }
 
     /**
@@ -49,22 +53,20 @@ public class IosFragment extends RefreshFragment {
      */
     @Override
     protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
-        return Api.getIns().getIos(mCurrPage).subscribe(new Subscriber<List<GIosEntity>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(List<GIosEntity> gIosEntities) {
-
-            }
-        });
+        return Api.getIns().getIos(mCurrPage)
+                .subscribe(new RefreshSubscriber<GankResponse>(isForce, isRefresh) {
+                    @Override
+                    public void onNext(GankResponse entity) {
+                        canLoadmore = entity.results.size() >= 0;
+                        if (mCurrPage == 1) {
+                            mDatas.clear();
+                        } else {
+                            setLoadMoreComplete();
+                        }
+                        mDatas.addAll(entity.results);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
 }

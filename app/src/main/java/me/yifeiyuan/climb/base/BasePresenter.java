@@ -1,13 +1,24 @@
 package me.yifeiyuan.climb.base;
 
-import android.support.annotation.NonNull;
-
 /**
- * Created by 程序亦非猿 on 16/5/31.
+ * Created by 程序亦非猿 on 16/6/1 下午6:42.
+ * Climb
  */
-public interface BasePresenter<T extends BaseView> {
+public class BasePresenter<V extends IView> implements IPresenter<V> {
 
-    void attachView(@NonNull T v);
+    protected V mView;
 
-    void detachView();
+    @Override
+    public void attachView(V v) {
+        this.mView = v;
+    }
+
+    @Override
+    public void detachView() {
+        mView = null;
+    }
+
+    protected boolean isViewActive() {
+        return null != mView && mView.isActive();
+    }
 }

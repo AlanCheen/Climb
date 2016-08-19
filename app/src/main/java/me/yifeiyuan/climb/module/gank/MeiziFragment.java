@@ -23,8 +23,8 @@ import java.util.List;
 
 import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
-import me.yifeiyuan.climb.data.GAndroid;
-import me.yifeiyuan.climb.data.GAndEntity;
+import me.yifeiyuan.climb.data.GankResponse;
+import me.yifeiyuan.climb.data.entity.GankEntity;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,7 +37,7 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     public static final String TAG = "MeiziFragment";
 
     private GankMeiziAdapter mAdapter;
-    private ArrayList<GAndEntity> mDatas;
+    private ArrayList<GankEntity> mDatas;
     private boolean canLoadmore;
 
     public static MeiziFragment newInstance() {
@@ -62,10 +62,10 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
         return Api.getIns().getMeizi(mCurrPage)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RefreshSubscriber<GAndroid>(isForce,isRefresh){
+                .subscribe(new RefreshSubscriber<GankResponse>(isForce,isRefresh){
                     @Override
-                    public void onNext(GAndroid gAndroid) {
-                        List<GAndEntity> entities = gAndroid.results;
+                    public void onNext(GankResponse gAndroid) {
+                        List<GankEntity> entities = gAndroid.results;
                         canLoadmore = entities.size() >= 0;
                         if (mCurrPage == 1) {
                             mDatas.clear();

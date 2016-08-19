@@ -3,6 +3,8 @@ package me.yifeiyuan.climb.data;
 
 import java.util.List;
 
+import me.yifeiyuan.climb.data.entity.GankEntity;
+
 /**
  * Stair github:  https://github.com/AlanCheen/Stair
  * Created by 程序亦非猿 (http://weibo.com/alancheeen)
@@ -20,11 +22,11 @@ public class GankDaily {
     public ResultsEntity results;
 
     public static class ResultsEntity {
-        public List<GAndEntity> iOS;
-        public List<GAndEntity> Android;
-        public List<GAndEntity> 瞎推荐;
-        public List<GAndEntity> 拓展资源;
-        public List<GAndEntity> 福利;
-        public List<GAndEntity> 休息视频;
+        public List<GankEntity> iOS;
+        public List<GankEntity> Android;
+        public List<GankEntity> 瞎推荐;
+        public List<GankEntity> 拓展资源;
+        public List<GankEntity> 福利;
+        public List<GankEntity> 休息视频;
     }
 }

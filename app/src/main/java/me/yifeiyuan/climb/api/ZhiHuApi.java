@@ -1,7 +1,7 @@
 package me.yifeiyuan.climb.api;
 
 
-import me.yifeiyuan.climb.data.SplashEntity;
+import me.yifeiyuan.climb.data.entity.SplashEntity;
 import retrofit2.http.GET;
 import rx.Observable;
 

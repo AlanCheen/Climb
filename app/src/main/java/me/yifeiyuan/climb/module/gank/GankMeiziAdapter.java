@@ -29,7 +29,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.data.GAndEntity;
+import me.yifeiyuan.climb.data.entity.GankEntity;
+import me.yifeiyuan.climb.tools.Navigator;
 import me.yifeiyuan.climb.ui.view.RatioImageView;
 
 /**
@@ -37,10 +38,10 @@ import me.yifeiyuan.climb.ui.view.RatioImageView;
  */
 public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.GankViewHolder>{
 
-    private List<GAndEntity> mDatas;
+    private List<GankEntity> mDatas;
     private Context mContext;
 
-    public GankMeiziAdapter(Context context, List<GAndEntity> mDatas) {
+    public GankMeiziAdapter(Context context, List<GankEntity> mDatas) {
         this.mContext = context;
         this.mDatas = mDatas;
     }
@@ -56,7 +57,7 @@ public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.Gank
     @Override
     public void onBindViewHolder(final GankViewHolder holder, int position) {
 
-        GAndEntity entity = mDatas.get(position);
+        final GankEntity entity = mDatas.get(position);
 
         Glide.with(mContext)
                 .load(entity.url)
@@ -68,6 +69,7 @@ public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.Gank
                 .into(holder.ivMeizi);
 
         holder.itemView.setOnClickListener(v -> {
+            Navigator.go2PhotoActivity(mContext,entity.url);
             if (null != mOnItemClickListener) {
                 mOnItemClickListener.onItemClick(holder,entity);
             }
@@ -96,6 +98,6 @@ public class GankMeiziAdapter extends RecyclerView.Adapter<GankMeiziAdapter.Gank
     private onItemClickListener mOnItemClickListener;
 
     public interface onItemClickListener {
-        void onItemClick(GankViewHolder holder,GAndEntity entity);
+        void onItemClick(GankViewHolder holder,GankEntity entity);
     }
 }

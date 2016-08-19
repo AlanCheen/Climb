@@ -28,7 +28,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.data.GAndEntity;
+import me.yifeiyuan.climb.data.entity.GankEntity;
 import me.yifeiyuan.climb.module.web.WebActivity;
 
 /**
@@ -37,10 +37,10 @@ import me.yifeiyuan.climb.module.web.WebActivity;
  */
 public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder> {
 
-    private List<GAndEntity> mDatas;
+    private List<GankEntity> mDatas;
     private Context mContext;
 
-    public GankAdapter(Context context, List<GAndEntity> mDatas) {
+    public GankAdapter(Context context, List<GankEntity> mDatas) {
         this.mContext = context;
         this.mDatas = mDatas;
     }
@@ -55,7 +55,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     @Override
     public void onBindViewHolder(GankViewHolder holder, int position) {
 
-        GAndEntity entity = mDatas.get(position);
+        GankEntity entity = mDatas.get(position);
         holder.tvContent.setText(entity.desc);
 
         holder.itemView.setOnClickListener(v -> {
@@ -88,7 +88,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
     private onItemClickListener mOnItemClickListener;
 
     public interface onItemClickListener {
-        void onItemClick(GAndEntity entity);
+        void onItemClick(GankEntity entity);
     }
 
 }

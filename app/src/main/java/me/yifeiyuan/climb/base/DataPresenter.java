@@ -10,7 +10,7 @@ import rx.subscriptions.CompositeSubscription;
  *
  * 可以请求数据的Presenter
  */
-public abstract class DataPresenter<V extends BaseView> extends AbstractPresenter<V> {
+public abstract class DataPresenter<V extends IView> extends BasePresenter<V> {
 
     protected CompositeSubscription mSubscription = new CompositeSubscription();
 

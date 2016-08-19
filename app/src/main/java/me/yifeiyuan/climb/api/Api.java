@@ -3,16 +3,14 @@ package me.yifeiyuan.climb.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import me.yifeiyuan.climb.BuildConfig;
-import me.yifeiyuan.climb.data.GAndroid;
-import me.yifeiyuan.climb.data.GIosEntity;
+import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.GankConfig;
 import me.yifeiyuan.climb.data.GankDaily;
 import me.yifeiyuan.climb.data.RxResponse;
-import me.yifeiyuan.climb.data.SplashEntity;
+import me.yifeiyuan.climb.data.entity.SplashEntity;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -72,15 +70,19 @@ public class Api {
 
     // TODO: 16/7/29 compose
 
-    public Observable<GAndroid> getAndroid(int page) {
+    public Observable<GankResponse> getAndroid(int page) {
         return mGankApi.getAndroid(page);
     }
 
-    public Observable<List<GIosEntity>> getIos(int page) {
-        return apply(mGankApi.getIos(page));
+    public Observable<GankResponse> getIos(int page) {
+        return wrap(mGankApi.getIos(page));
     }
 
-    public Observable<GAndroid> getMeizi(int page) {
+//    public Observable<List<GIosEntity>> getIos(int page) {
+//        return apply(mGankApi.getIos(page));
+//    }
+
+    public Observable<GankResponse> getMeizi(int page) {
         return mGankApi.getMeizi(page);
     }
 
@@ -90,6 +92,13 @@ public class Api {
 
     public Observable<SplashEntity> getWel() {
         return mZhiHuApi.getWel();
+    }
+
+
+    private  <T> Observable<T> wrap(Observable<T> o) {
+        return o.timeout(10_000,TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     private <T> Observable<T> apply(Observable<RxResponse<T>> observable) {

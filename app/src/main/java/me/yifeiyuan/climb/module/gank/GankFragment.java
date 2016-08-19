@@ -55,11 +55,13 @@ public class GankFragment extends BaseFragment {
         mFragments = new ArrayList<>();
         mFragments.add(AndFragment.newInstance());
         mFragments.add(MeiziFragment.newInstance());
+        mFragments.add(IosFragment.newInstance());
         mAdapter = new FAdapter(getChildFragmentManager());
 
         mTitles = new ArrayList<>();
         mTitles.add("Android");
         mTitles.add("妹纸");
+        mTitles.add("iOS");
 
         setHasOptionsMenu(true);
     }

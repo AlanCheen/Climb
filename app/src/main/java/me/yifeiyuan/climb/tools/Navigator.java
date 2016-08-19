@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015, 程序亦非猿
+ * Copyright (C) 2016, 程序亦非猿
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.data;
+package me.yifeiyuan.climb.tools;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 
 /**
- * Created by 程序亦非猿 on 16/7/30.
+ * Created by 程序亦非猿 on 16/7/31.
  */
-public class GIosEntity {
+public class Navigator {
 
-  public  String _id;
-  public  String createdAt;
-  public  String desc;
-  public  String publishedAt;
-  public  String source;
-  public  String type;
-  public  String url;
-  public  String used;
-  public  String who;
+
+    public static void go2PhotoActivity(Context cxt, String url){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("climb://photo/url=" + url));
+        cxt.startActivity(intent);
+    }
 }

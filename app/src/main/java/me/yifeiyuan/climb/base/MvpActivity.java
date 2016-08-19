@@ -2,7 +2,7 @@ package me.yifeiyuan.climb.base;
 
 import android.os.Bundle;
 
-public abstract class MvpActivity<P extends BasePresenter> extends BaseActivity implements BaseView {
+public abstract class MvpActivity<P extends IPresenter> extends BaseActivity implements IView {
 
     private P mPresenter;
 

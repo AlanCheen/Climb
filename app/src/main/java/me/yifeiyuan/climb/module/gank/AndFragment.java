@@ -25,8 +25,8 @@ import java.util.ArrayList;
 
 import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
-import me.yifeiyuan.climb.data.GAndroid;
-import me.yifeiyuan.climb.data.GAndEntity;
+import me.yifeiyuan.climb.data.GankResponse;
+import me.yifeiyuan.climb.data.entity.GankEntity;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -41,7 +41,7 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     public static final String TAG = "AndFragment";
 
     private GankAdapter mAdapter;
-    private ArrayList<GAndEntity> mDatas;
+    private ArrayList<GankEntity> mDatas;
     private boolean canLoadmore;
 
     public static AndFragment newInstance() {
@@ -71,9 +71,9 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
         return Api.getIns().getAndroid(mCurrPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new RefreshSubscriber<GAndroid>(isForce,isRefresh) {
+                .subscribe(new RefreshSubscriber<GankResponse>(isForce,isRefresh) {
                     @Override
-                    public void onNext(GAndroid entity) {
+                    public void onNext(GankResponse entity) {
                         canLoadmore = entity.results.size() >= 0;
 
                         if (mCurrPage == 1) {
