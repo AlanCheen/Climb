@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.umeng.analytics.AnalyticsConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,8 @@ import me.yifeiyuan.climb.module.gank.GankFragment;
 import me.yifeiyuan.climb.tools.utils.ChannelUtil;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
 
     @Bind(R.id.fab)
     FloatingActionButton mFab;
@@ -63,6 +67,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String channel = AnalyticsConfig.getChannel(this);
+        Log.d(TAG, "onResume: "+channel);
     }
 
     @Override

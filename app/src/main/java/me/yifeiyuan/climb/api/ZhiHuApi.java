@@ -2,7 +2,9 @@ package me.yifeiyuan.climb.api;
 
 
 import me.yifeiyuan.climb.data.entity.SplashEntity;
+import okhttp3.RequestBody;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -16,4 +18,13 @@ public interface ZhiHuApi {
 
     @GET("http://news-at.zhihu.com/api/4/start-image/1080*1776")
     Observable<SplashEntity> getWel();
+
+
+    /**主题日报列表*/
+    @GET("http://news-at.zhihu.com/api/4/themes")
+    Observable<RequestBody> themeList();
+
+    /**主题日报内容*/
+    @GET("http://news-at.zhihu.com/api/4/theme/{themeId}")
+    Observable<RequestBody> themeDetails(@Path("themeId") int themeId);
 }

@@ -17,13 +17,14 @@ import java.util.List;
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseFragment;
+import me.yifeiyuan.climb.tools.trace.Agent;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link GankFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GankFragment extends BaseFragment {
+public class GankFragment extends BaseFragment implements ViewPager.OnPageChangeListener{
 
     public static final String TAG = "GankFragment";
 
@@ -71,6 +72,7 @@ public class GankFragment extends BaseFragment {
 
         mVpGank.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mVpGank);
+        mVpGank.addOnPageChangeListener(this);
     }
 
     @Override
@@ -82,6 +84,21 @@ public class GankFragment extends BaseFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.gank_main_menu, menu);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Agent.onEvent(mActivity,"gank_"+mAdapter.getPageTitle(position).toString());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     private class FAdapter extends FragmentPagerAdapter {

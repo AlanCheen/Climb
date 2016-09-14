@@ -31,9 +31,15 @@ android {
 
     productFlavors {
 
-        Github {
+        github {
             manifestPlaceholders = [
-                    UMENG_CHANNEL: "Github"
+                    UMENG_CHANNEL: "github"
+            ]
+        }
+
+        fir {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "fir"
             ]
         }
 
