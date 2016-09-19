@@ -42,7 +42,11 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        mUrl = getIntent().getStringExtra(KEY_URL);
+        //如果是 github 的仓库地址，那么直接进完整的README 不然每次都要自己点
+        if (mUrl.startsWith("https://github.com") && !mUrl.endsWith("README.md")) {
+            mUrl = mUrl + "/blob/master/README.md";
+        }
     }
 
     @Override
@@ -74,7 +78,6 @@ public class WebActivity extends BaseActivity {
             }
         });
 
-        mUrl = getIntent().getStringExtra(KEY_URL);
         mWebview.loadUrl(mUrl);
 
     }

@@ -19,20 +19,15 @@ package me.yifeiyuan.climb.base;
 import android.content.Context;
 
 import me.yifeiyuan.climb.ui.widget.ToastUtil;
-import rx.Subscriber;
 
 /**
  * Created by 程序亦非猿 on 16/7/14.
  */
-public class CxtSubscriber<T> extends Subscriber<T>{
+public class CxtSubscriber<T> extends BaseSubscriber<T>{
 
     protected Context mContext;
     public CxtSubscriber(Context cxt) {
         mContext = cxt;
-    }
-    @Override
-    public void onCompleted() {
-
     }
 
     @Override
@@ -40,8 +35,4 @@ public class CxtSubscriber<T> extends Subscriber<T>{
         ToastUtil.show(mContext,e.getMessage());
     }
 
-    @Override
-    public void onNext(T t) {
-
-    }
 }
