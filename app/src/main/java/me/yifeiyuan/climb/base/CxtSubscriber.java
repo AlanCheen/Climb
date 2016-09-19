@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 程序亦非猿
+ * Copyright (C) 2015, 程序亦非猿
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,20 @@
 
 package me.yifeiyuan.climb.base;
 
+import android.content.Context;
+
+import me.yifeiyuan.climb.ui.widget.ToastUtil;
 import rx.Subscriber;
 
 /**
- * Created by 程序亦非猿 on 16/9/19.
+ * Created by 程序亦非猿 on 16/7/14.
  */
-public class BaseSubscriber<T> extends Subscriber<T>{
+public class CxtSubscriber<T> extends Subscriber<T>{
+
+    protected Context mContext;
+    public CxtSubscriber(Context cxt) {
+        mContext = cxt;
+    }
     @Override
     public void onCompleted() {
 
@@ -29,7 +37,7 @@ public class BaseSubscriber<T> extends Subscriber<T>{
 
     @Override
     public void onError(Throwable e) {
-
+        ToastUtil.show(mContext,e.getMessage());
     }
 
     @Override

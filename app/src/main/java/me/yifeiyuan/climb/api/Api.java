@@ -91,7 +91,7 @@ public class Api {
     }
 
     public Observable<SplashEntity> getWel() {
-        return mZhiHuApi.getWel();
+        return wrap(mZhiHuApi.getWel());
     }
 
 
