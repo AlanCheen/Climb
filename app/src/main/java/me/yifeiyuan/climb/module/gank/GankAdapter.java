@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015, 程序亦非猿
+ * Copyright (C) 2016, 程序亦非猿
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.data.entity.GankEntity;
 import me.yifeiyuan.climb.module.web.WebActivity;
+import me.yifeiyuan.climb.tools.TraceableClickListener;
 
 /**
  * Created by 程     (http://weibo.com/alancheeen)
@@ -58,12 +59,14 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
         GankEntity entity = mDatas.get(position);
         holder.tvContent.setText(entity.desc);
 
-        holder.itemView.setOnClickListener(v -> {
-            WebActivity.comeOn(mContext,entity.url);
-            if (null != mOnItemClickListener) {
-                mOnItemClickListener.onItemClick(entity);
+        holder.itemView.setOnClickListener(new TraceableClickListener() {
+            @Override
+            public void onClick(View v) {
+                super.onClick(v);
+                WebActivity.comeOn(mContext, entity.url);
             }
         });
+
     }
 
     @Override
@@ -71,24 +74,13 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankViewHolder
         return mDatas.size();
     }
 
-    public class GankViewHolder extends RecyclerView.ViewHolder {
+    static class GankViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.content)
         TextView tvContent;
 
-        public GankViewHolder(View itemView) {
+        GankViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
-
-    public void setOnItemClickListener(onItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
-
-    private onItemClickListener mOnItemClickListener;
-
-    public interface onItemClickListener {
-        void onItemClick(GankEntity entity);
-    }
-
 }

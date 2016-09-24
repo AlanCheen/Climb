@@ -17,8 +17,6 @@
 package me.yifeiyuan.climb.module.gank;
 
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -53,11 +51,6 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     protected void initData() {
         mDatas = new ArrayList<>();
         mAdapter = new GankAdapter(mActivity, mDatas);
-    }
-
-    @Override
-    protected void initView(@Nullable Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
     }
 
     @Override
