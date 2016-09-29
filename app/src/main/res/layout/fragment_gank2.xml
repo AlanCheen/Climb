@@ -23,7 +23,6 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Gank"
             >
         </android.support.v7.widget.Toolbar>
 
@@ -32,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabSelectedTextColor="@android:color/white"
             app:tabTextColor="@android:color/white"
             >
         </android.support.design.widget.TabLayout>

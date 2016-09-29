@@ -26,8 +26,6 @@ import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.entity.GankEntity;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by 程序亦非猿 on 16/7/28.
@@ -60,8 +58,6 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
 
         return Api.getIns().getMeizi(mCurrPage)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RefreshSubscriber<GankResponse>(isForce,isRefresh){
                     @Override
                     public void onNext(GankResponse gAndroid) {

@@ -26,8 +26,6 @@ import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.entity.GankEntity;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,8 +60,6 @@ public class AndFragment extends RefreshFragment<GankAdapter> {
     protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
 
         return Api.getIns().getAndroid(mCurrPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RefreshSubscriber<GankResponse>(isForce,isRefresh) {
                     @Override
                     public void onNext(GankResponse entity) {

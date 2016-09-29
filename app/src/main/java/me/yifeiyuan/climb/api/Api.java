@@ -71,7 +71,7 @@ public class Api {
     // TODO: 16/7/29 compose
 
     public Observable<GankResponse> getAndroid(int page) {
-        return mGankApi.getAndroid(page);
+        return wrap(mGankApi.getAndroid(page));
     }
 
     public Observable<GankResponse> getIos(int page) {
@@ -83,7 +83,7 @@ public class Api {
 //    }
 
     public Observable<GankResponse> getMeizi(int page) {
-        return mGankApi.getMeizi(page);
+        return wrap(mGankApi.getMeizi(page));
     }
 
     public Observable<GankDaily> getDaily(int year, int month, int day) {
