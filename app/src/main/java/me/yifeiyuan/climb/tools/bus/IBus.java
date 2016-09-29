@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.tools.trace;
+package me.yifeiyuan.climb.tools.bus;
 
 /**
- * Created by 程序亦非猿 on 16/9/20.
+ * Created by 程序亦非猿 on 16/9/29.
  */
 
-public interface Traceable {
-    void trace();
+public interface IBus {
+
+    void post(Object event);
+
+    void register(Object o);
+
+    void unregister(Object o);
 }

@@ -14,12 +14,36 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.tools.trace;
+package me.yifeiyuan.climb.tools.bus;
+
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by 程序亦非猿 on 16/9/20.
+ * Created by 程序亦非猿 on 16/9/29.
  */
+public class OldDriver implements IBus {
 
-public interface Traceable {
-    void trace();
+    private static OldDriver sIns = new OldDriver();
+
+    private EventBus mBus = new EventBus();
+
+    public static OldDriver getIns() {
+        return sIns;
+    }
+
+    @Override
+    public void post(Object event) {
+        mBus.post(event);
+    }
+
+    @Override
+    public void register(Object o) {
+        mBus.register(o);
+    }
+
+    @Override
+    public void unregister(Object o) {
+        mBus.unregister(o);
+    }
 }

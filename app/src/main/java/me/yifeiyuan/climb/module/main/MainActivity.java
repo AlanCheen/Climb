@@ -14,42 +14,45 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb;
+package me.yifeiyuan.climb.module.main;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.umeng.analytics.AnalyticsConfig;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
+import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseActivity;
-import me.yifeiyuan.climb.base.BaseFragment;
 import me.yifeiyuan.climb.module.gank.GankFragment;
+import me.yifeiyuan.climb.tools.bus.OldDriver;
 import me.yifeiyuan.climb.tools.utils.ChannelUtil;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 
-    @Bind(R.id.fab)
-    FloatingActionButton mFab;
+//    @Bind(R.id.fab)
+//    FloatingActionButton mFab;
     @Bind(R.id.nav_view)
     NavigationView mNavView;
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+
+    ImageView mIvAvatar;
+    TextView mTvNick;
+    TextView mTvMail;
 
     @Override
     protected int getLayoutId() {
@@ -59,18 +62,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void initData() {
         overridePendingTransition(R.anim.fade_in,R.anim.no_anim);
+        OldDriver.getIns().register(this);
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-
         setupDrawer();
-
-        getSwipeBackLayout().setEnableGesture(false);
+        setSwipeBackEnable(false);
 
         mNavView.setNavigationItemSelectedListener(this);
-
+        View header = mNavView.getHeaderView(0);
+        mIvAvatar = (ImageView) header.findViewById(R.id.avatar);
+        mTvMail = (TextView) header.findViewById(R.id.mail);
+        mTvNick = (TextView) header.findViewById(R.id.nick);
+        mTvMail.setOnClickListener(this);
         if (null == savedInstanceState) {
 //            addFragment(AndFragment.newInstance(),AndFragment.TAG);
 //            addFragment(MeiziFragment.newInstance(),MeiziFragment.TAG);
@@ -123,7 +129,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -152,26 +157,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.mail:
 
-    private class FragAdapter extends FragmentPagerAdapter{
-
-        List<BaseFragment> mFragments = new ArrayList<>();
-        List<String> mTitles = new ArrayList<>();
-
-        public FragAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-
-        @Override
-        public Fragment getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 0;
+                break;
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OldDriver.getIns().unregister(this);
+    }
+
+    @Subscribe
+    public void onOpenDrawer(OpenDrawerEvent event) {
+        mDrawerLayout.openDrawer(GravityCompat.START);
+    }
 }

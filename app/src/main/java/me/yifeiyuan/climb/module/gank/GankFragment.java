@@ -22,10 +22,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,7 @@ import java.util.List;
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseFragment;
+import me.yifeiyuan.climb.base.ToolbarFragment;
 import me.yifeiyuan.climb.tools.trace.Agent;
 
 /**
@@ -40,7 +40,7 @@ import me.yifeiyuan.climb.tools.trace.Agent;
  * Use the {@link GankFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GankFragment extends BaseFragment implements ViewPager.OnPageChangeListener{
+public class GankFragment extends ToolbarFragment implements ViewPager.OnPageChangeListener{
 
     public static final String TAG = "GankFragment";
 
@@ -55,15 +55,16 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     TabLayout mTabLayout;
 
     public static GankFragment newInstance() {
+
         GankFragment fragment = new GankFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+//        Bundle args = new Bundle();
+//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_gank;
+        return R.layout.fragment_gank2;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         mTitles.add("妹纸");
         mTitles.add("iOS");
 
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
     }
 
     @Override
@@ -89,17 +90,14 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         mVpGank.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mVpGank);
         mVpGank.addOnPageChangeListener(this);
+
+        setupToolbar("Gank",R.menu.gank_main_menu);
+
     }
 
     @Override
     protected void requestData(boolean isForce, boolean isRefresh) {
 
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.gank_main_menu, menu);
     }
 
     @Override
@@ -117,7 +115,13 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
 
     }
 
-    private class FAdapter extends FragmentPagerAdapter {
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        final int id = item.getItemId();
+        return false;
+    }
+
+    private class FAdapter extends FragmentStatePagerAdapter {
 
         public FAdapter(FragmentManager fm) {
             super(fm);

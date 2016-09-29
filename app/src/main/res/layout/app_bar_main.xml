@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="me.yifeiyuan.climb.MainActivity">
+    tools:context="me.yifeiyuan.climb.module.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -37,9 +37,8 @@
         android:id="@id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    </FrameLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+       />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
