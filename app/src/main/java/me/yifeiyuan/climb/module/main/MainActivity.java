@@ -16,6 +16,8 @@
 
 package me.yifeiyuan.climb.module.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,10 +36,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
+import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.module.gank.GankFragment;
 import me.yifeiyuan.climb.tools.bus.OldDriver;
 import me.yifeiyuan.climb.tools.utils.ChannelUtil;
+import okhttp3.RequestBody;
+import rx.Subscriber;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -72,11 +77,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setSwipeBackEnable(false);
 
         mNavView.setNavigationItemSelectedListener(this);
+        mNavView.setItemIconTintList(null);
         View header = mNavView.getHeaderView(0);
         mIvAvatar = (ImageView) header.findViewById(R.id.avatar);
         mTvMail = (TextView) header.findViewById(R.id.mail);
         mTvNick = (TextView) header.findViewById(R.id.nick);
         mTvMail.setOnClickListener(this);
+
         if (null == savedInstanceState) {
 //            addFragment(AndFragment.newInstance(),AndFragment.TAG);
 //            addFragment(MeiziFragment.newInstance(),MeiziFragment.TAG);
@@ -96,6 +103,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onResume();
         String channel = AnalyticsConfig.getChannel(this);
         Log.d(TAG, "onResume: "+channel);
+
+        Api.getIns().getWeather("hangzhou").subscribe(new Subscriber<RequestBody>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(RequestBody requestBody) {
+                Log.d(TAG, "onNext() called with: requestBody = [" + requestBody + "]");
+            }
+        });
     }
 
     @Override
@@ -139,7 +163,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_gank) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -161,7 +185,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mail:
-
+                Intent mail = new Intent(Intent.ACTION_SEND);
+                mail.setData(Uri.parse("mailto:" + mTvMail.getText()));
+                mail.putExtra(Intent.EXTRA_SUBJECT, "来自 Climb");
+                mail.putExtra(Intent.EXTRA_TEXT, "我想说:");
+                if (mail.resolveActivity(getPackageManager())!= null) {
+                    startActivity(mail);
+                }
                 break;
         }
     }

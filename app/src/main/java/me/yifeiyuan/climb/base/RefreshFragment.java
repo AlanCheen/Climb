@@ -28,8 +28,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
+import me.yifeiyuan.climb.module.gank.ReturnTopEvent;
+import me.yifeiyuan.climb.tools.bus.OldDriver;
 import me.yifeiyuan.climb.ui.view.OPRecyclerView;
 import rx.Subscriber;
 import rx.Subscription;
@@ -73,12 +77,14 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
     @CallSuper
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
-        mRefresh.setColorSchemeResources(
-                android.R.color.holo_blue_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_green_light,
-                android.R.color.holo_red_light);
 
+        OldDriver.getIns().register(this);
+//        mRefresh.setColorSchemeResources(
+//                android.R.color.holo_blue_light,
+//                android.R.color.holo_orange_light,
+//                android.R.color.holo_green_light,
+//                android.R.color.holo_red_light);
+        mRefresh.setColorSchemeResources(R.color.colorPrimary);
         mRv.setOnLoadMoreListener(this);
         mRefresh.setOnRefreshListener(this);
         mRv.setLayoutManager(getLayoutManager());
@@ -95,6 +101,12 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
         requestData(false, false);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        OldDriver.getIns().unregister(this);
+    }
+
     protected void setRefreshing(boolean refreshing) {
         mRefresh.setRefreshing(refreshing);
     }
@@ -106,6 +118,9 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
     protected abstract A getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
+        if (mRv.getLayoutManager() != null) {
+            return mRv.getLayoutManager();
+        }
         return new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
     }
 
@@ -134,7 +149,7 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
         /**是否是刷新*/
         boolean isRefresh;
 
-        public RefreshSubscriber(boolean isForce, boolean isRefresh) {
+        protected RefreshSubscriber(boolean isForce, boolean isRefresh) {
             this.isForce = isForce;
             this.isRefresh = isRefresh;
         }
@@ -161,6 +176,13 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
         @Override
         public void onNext(T t) {
 
+        }
+    }
+
+    @Subscribe
+    public void onReturnTop(ReturnTopEvent event) {
+        if (getUserVisibleHint()&&getLayoutManager()instanceof LinearLayoutManager) {
+            ((LinearLayoutManager)getLayoutManager()).scrollToPositionWithOffset(0,0);
         }
     }
 }

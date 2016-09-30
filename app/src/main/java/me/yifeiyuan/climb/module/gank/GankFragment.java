@@ -19,12 +19,14 @@ package me.yifeiyuan.climb.module.gank;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseFragment;
 import me.yifeiyuan.climb.base.ToolbarFragment;
+import me.yifeiyuan.climb.tools.bus.OldDriver;
 import me.yifeiyuan.climb.tools.trace.Agent;
 
 /**
@@ -40,7 +43,7 @@ import me.yifeiyuan.climb.tools.trace.Agent;
  * Use the {@link GankFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GankFragment extends ToolbarFragment implements ViewPager.OnPageChangeListener{
+public class GankFragment extends ToolbarFragment implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
     public static final String TAG = "GankFragment";
 
@@ -48,6 +51,8 @@ public class GankFragment extends ToolbarFragment implements ViewPager.OnPageCha
     private List<String> mTitles;
     private FAdapter mAdapter;
 
+    @Bind(R.id.fab)
+    FloatingActionButton mFab;
     @Bind(R.id.vp_gank)
     ViewPager mVpGank;
 
@@ -71,14 +76,14 @@ public class GankFragment extends ToolbarFragment implements ViewPager.OnPageCha
     protected void initData() {
 
         mFragments = new ArrayList<>();
-        mFragments.add(AndFragment.newInstance());
         mFragments.add(MeiziFragment.newInstance());
+        mFragments.add(AndFragment.newInstance());
         mFragments.add(IosFragment.newInstance());
         mAdapter = new FAdapter(getChildFragmentManager());
 
         mTitles = new ArrayList<>();
-        mTitles.add("Android");
         mTitles.add("妹纸");
+        mTitles.add("Android");
         mTitles.add("iOS");
 
 //        setHasOptionsMenu(true);
@@ -91,8 +96,8 @@ public class GankFragment extends ToolbarFragment implements ViewPager.OnPageCha
         mTabLayout.setupWithViewPager(mVpGank);
         mVpGank.addOnPageChangeListener(this);
 
-        setupToolbar("Gank",R.menu.gank_main_menu);
-
+        setupToolbar("Gank.io",R.menu.gank_main_menu);
+        mFab.setOnClickListener(this);
     }
 
     @Override
@@ -121,9 +126,19 @@ public class GankFragment extends ToolbarFragment implements ViewPager.OnPageCha
         return false;
     }
 
+    @Override
+    public void onClick(View v) {
+        final int id = v.getId();
+        switch (id) {
+            case R.id.fab:
+                OldDriver.getIns().post(new ReturnTopEvent());
+                break;
+        }
+    }
+
     private class FAdapter extends FragmentStatePagerAdapter {
 
-        public FAdapter(FragmentManager fm) {
+        FAdapter(FragmentManager fm) {
             super(fm);
         }
 

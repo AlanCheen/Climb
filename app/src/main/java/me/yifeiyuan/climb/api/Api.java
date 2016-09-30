@@ -6,12 +6,13 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import me.yifeiyuan.climb.BuildConfig;
-import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.GankConfig;
 import me.yifeiyuan.climb.data.GankDaily;
+import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.RxResponse;
 import me.yifeiyuan.climb.data.entity.SplashEntity;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -37,6 +38,7 @@ public class Api {
 
     private final GankApi mGankApi;
     private final ZhiHuApi mZhiHuApi;
+    private final WeatherApi mWeatherApi;
 
     private Api() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -64,8 +66,8 @@ public class Api {
                 .build();
 
         mGankApi = retrofit.create(GankApi.class);
-
         mZhiHuApi = retrofit.create(ZhiHuApi.class);
+        mWeatherApi = retrofit.create(WeatherApi.class);
     }
 
     // TODO: 16/7/29 compose
@@ -94,6 +96,10 @@ public class Api {
         return wrap(mZhiHuApi.getWel());
     }
 
+
+    public Observable<RequestBody> getWeather(String city) {
+        return wrap(mWeatherApi.getWeather(city));
+    }
 
     private  <T> Observable<T> wrap(Observable<T> o) {
         return o.timeout(10_000,TimeUnit.MILLISECONDS)

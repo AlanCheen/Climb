@@ -16,11 +16,14 @@
 
 package me.yifeiyuan.climb.module.gank;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GankResponse;
@@ -47,6 +50,12 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     protected void initData() {
         mDatas = new ArrayList<>();
         mAdapter = new GankMeiziAdapter(mActivity, mDatas);
+    }
+
+    @Override
+    protected void initView(@Nullable Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        mRv.setBackgroundResource(R.color.colorPrimary);
     }
 
     @Override

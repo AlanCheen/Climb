@@ -46,12 +46,15 @@
             android:process=":web"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".module.photo.PhotoActivity" android:exported="false">
-
-            <intent-filter >
+        <activity
+            android:name=".module.photo.PhotoActivity"
+            android:exported="false">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <data android:host="photo" android:scheme="climb"/>
+                <data
+                    android:host="photo"
+                    android:scheme="climb"/>
             </intent-filter>
         </activity>
     </application>

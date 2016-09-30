@@ -4,8 +4,8 @@
     <group android:checkableBehavior="single">
         <item
             android:checked="true"
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_gank"
+            android:icon="@drawable/ic_menu_gank"
             android:title="Gank.io"/>
         <item
             android:id="@+id/nav_gallery"
