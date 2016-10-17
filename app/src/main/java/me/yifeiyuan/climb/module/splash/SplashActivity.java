@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import me.yifeiyuan.climb.module.main.MainActivity;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.api.Api;
+import me.yifeiyuan.climb.network.api.Api;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.base.BaseSubscriber;
 import me.yifeiyuan.climb.data.entity.SplashEntity;

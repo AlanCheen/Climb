@@ -1,4 +1,4 @@
-package me.yifeiyuan.climb.api;
+package me.yifeiyuan.climb.network.api;
 
 
 import me.yifeiyuan.climb.data.entity.SplashEntity;

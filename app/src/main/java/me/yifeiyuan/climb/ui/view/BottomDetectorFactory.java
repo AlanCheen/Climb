@@ -34,9 +34,9 @@ public class BottomDetectorFactory {
             return new LinearDetector((LinearLayoutManager) lm);
         } else if (lm instanceof StaggeredGridLayoutManager) {
 //            return // TODO: 16/7/28
-            throw new UnsupportedOperationException("not supported!");
+            throw new UnsupportedOperationException("not support yet!");
         } else {
-            throw new UnsupportedOperationException("not supported!");
+            throw new UnsupportedOperationException("not support yet!");
         }
     }
 }

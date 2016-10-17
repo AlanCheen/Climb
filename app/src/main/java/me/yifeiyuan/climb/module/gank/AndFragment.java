@@ -21,7 +21,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
-import me.yifeiyuan.climb.api.Api;
+import me.yifeiyuan.climb.network.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.entity.GankEntity;

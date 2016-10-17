@@ -17,6 +17,7 @@
 package me.yifeiyuan.climb.ui.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 /**
@@ -26,9 +27,9 @@ public class ToastUtil {
 
     private static Toast sToast ;
 
-    public static void show(Context cxt, CharSequence content) {
+    public static void show(@NonNull Context cxt,@NonNull CharSequence content) {
         if (null == sToast) {
-            sToast = Toast.makeText(cxt, content, Toast.LENGTH_SHORT);
+            sToast = Toast.makeText(cxt.getApplicationContext(), content, Toast.LENGTH_SHORT);
         }
         sToast.setText(content);
         sToast.show();

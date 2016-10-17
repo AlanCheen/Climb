@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.api;
+package me.yifeiyuan.climb.network.api;
 
 import me.yifeiyuan.climb.app.Config;
 import okhttp3.RequestBody;

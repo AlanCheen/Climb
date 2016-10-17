@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.data.entity.GankEntity;
 import me.yifeiyuan.climb.module.web.WebActivity;
-import me.yifeiyuan.climb.tools.TraceableClickListener;
+import me.yifeiyuan.climb.tools.trace.TraceableClickListener;
 
 /**
  * Created by 程     (http://weibo.com/alancheeen)

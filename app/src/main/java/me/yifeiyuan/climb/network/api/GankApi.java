@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.yifeiyuan.climb.api;
+package me.yifeiyuan.climb.network.api;
 
 import me.yifeiyuan.climb.data.GankConfig;
 import me.yifeiyuan.climb.data.GankDaily;

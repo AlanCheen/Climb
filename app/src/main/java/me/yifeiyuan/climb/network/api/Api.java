@@ -1,4 +1,4 @@
-package me.yifeiyuan.climb.api;
+package me.yifeiyuan.climb.network.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

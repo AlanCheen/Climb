@@ -34,7 +34,7 @@ import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.module.gank.ReturnTopEvent;
 import me.yifeiyuan.climb.tools.bus.OldDriver;
-import me.yifeiyuan.climb.ui.view.OPRecyclerView;
+import me.yifeiyuan.climb.ui.view.OpRecyclerView;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -43,10 +43,10 @@ import rx.Subscription;
  * encapsulate refresh & loadmore
  *
  */
-public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,OPRecyclerView.OnLoadMoreListener{
+public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OpRecyclerView.OnLoadMoreListener{
 
     @Bind(R.id.rv)
-    protected OPRecyclerView mRv;
+    protected OpRecyclerView mRv;
 
     @Bind(R.id.refresh)
     protected SwipeRefreshLayout mRefresh;

@@ -8,23 +8,23 @@ import android.util.Log;
 /**
  * Created by 程序亦非猿 on 16/7/28.
  */
-public class OPRecyclerView extends RecyclerView implements OPScrollListener.OnBottomListener {
+public class OpRecyclerView extends RecyclerView implements OpOnScrollListener.OnBottomListener {
 
     private static final String TAG = "OPRecyclerView";
 
 
-    private  OPScrollListener mOPScrollListener;
-    public OPRecyclerView(Context context) {
+    private OpOnScrollListener mOpOnScrollListener;
+    public OpRecyclerView(Context context) {
         super(context);
         init();
     }
 
-    public OPRecyclerView(Context context, AttributeSet attrs) {
+    public OpRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public OPRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public OpRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -34,9 +34,9 @@ public class OPRecyclerView extends RecyclerView implements OPScrollListener.OnB
 
     @Override
     public void setLayoutManager(LayoutManager layout) {
-        if (null == mOPScrollListener) {
-            mOPScrollListener = new OPScrollListener(layout, this);
-            addOnScrollListener(mOPScrollListener);
+        if (null == mOpOnScrollListener) {
+            mOpOnScrollListener = new OpOnScrollListener(layout, this);
+            addOnScrollListener(mOpOnScrollListener);
         }
         super.setLayoutManager(layout);
     }
@@ -57,8 +57,8 @@ public class OPRecyclerView extends RecyclerView implements OPScrollListener.OnB
 
 
     public void setLoadMoreComplete() {
-        if (null != mOPScrollListener) {
-            mOPScrollListener.setLoadMoreComplete();
+        if (null != mOpOnScrollListener) {
+            mOpOnScrollListener.setLoadMoreComplete();
         }
     }
 

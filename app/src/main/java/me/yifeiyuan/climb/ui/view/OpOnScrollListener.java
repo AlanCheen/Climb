@@ -23,34 +23,37 @@ import static me.yifeiyuan.climb.tools.Checker.nonNull;
 /**
  * Created by 程序亦非猿 on 16/7/28.
  */
-public class OPScrollListener extends RecyclerView.OnScrollListener {
+public class OpOnScrollListener extends RecyclerView.OnScrollListener {
 
     private boolean isLoading;
 
-    BottomDetector mBottomDetector;
+    private BottomDetector mBottomDetector;
 
-    public OPScrollListener(RecyclerView.LayoutManager lm, OnBottomListener listener) {
+    public OpOnScrollListener(RecyclerView.LayoutManager lm, OnBottomListener listener) {
         mBottomDetector = BottomDetectorFactory.create(lm);
-        mOnLoadmoreListener = nonNull(listener);
+        mOnBottomListener = nonNull(listener);
     }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        // 如果不是上拉 就return
+        // if not scrolling down or isLoaring ,then return
         if (dy <= 0 || isLoading) {
             return;
         }
 
         if (mBottomDetector.isBottom()) {
             isLoading = true;
-            if (null != mOnLoadmoreListener) {
-                mOnLoadmoreListener.onBottom();
+            if (null != mOnBottomListener) {
+                mOnBottomListener.onBottom();
             }
         }
     }
 
-    private OnBottomListener mOnLoadmoreListener;
+    private OnBottomListener mOnBottomListener;
 
+    /**
+     * 加载更多完成
+     */
     public void setLoadMoreComplete() {
         isLoading = false;
     }

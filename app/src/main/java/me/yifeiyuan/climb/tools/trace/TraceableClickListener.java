@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package me.yifeiyuan.climb.tools;
+package me.yifeiyuan.climb.tools.trace;
 
 import android.support.annotation.CallSuper;
 import android.util.Log;
 import android.view.View;
-
-import me.yifeiyuan.climb.tools.trace.Traceable;
 
 /**
  * Created by 程序亦非猿 on 16/9/20.
