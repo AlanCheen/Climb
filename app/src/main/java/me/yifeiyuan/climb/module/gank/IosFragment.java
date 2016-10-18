@@ -22,7 +22,6 @@ import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
-import me.yifeiyuan.climb.network.api.Api;
 import me.yifeiyuan.climb.base.RefreshFragment;
 import me.yifeiyuan.climb.data.GankResponse;
 import me.yifeiyuan.climb.data.entity.GankEntity;
@@ -69,7 +68,7 @@ public class IosFragment extends RefreshFragment<GankAdapter> {
      */
     @Override
     protected Subscription onRequestData(boolean isForce, boolean isRefresh) {
-        return Api.getIns().getIos(mCurrPage)
+        return mActivity.getAppComponent().api().getIos(mCurrPage)
                 .subscribe(new RefreshSubscriber<GankResponse>(isForce, isRefresh) {
                     @Override
                     public void onNext(GankResponse entity) {

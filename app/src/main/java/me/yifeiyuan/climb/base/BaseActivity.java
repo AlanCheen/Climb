@@ -17,6 +17,8 @@ import android.view.View;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
+import me.yifeiyuan.climb.app.App;
+import me.yifeiyuan.climb.di.components.AppComponent;
 import me.yifeiyuan.climb.tools.trace.Agent;
 import me.yifeiyuan.swipeback.SwipeBackActivity;
 
@@ -155,4 +157,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         return (T) findViewById(id);
     }
 
+    public AppComponent getAppComponent() {
+        return ((App)getApplication()).getAppComponent();
+    }
 }

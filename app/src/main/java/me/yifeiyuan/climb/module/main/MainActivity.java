@@ -36,7 +36,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.network.api.Api;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.module.gank.GankFragment;
 import me.yifeiyuan.climb.tools.bus.OldDriver;
@@ -104,7 +103,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         String channel = AnalyticsConfig.getChannel(this);
         Log.d(TAG, "onResume: "+channel);
 
-        Api.getIns().getWeather("hangzhou").subscribe(new Subscriber<RequestBody>() {
+        getAppComponent().api().getWeather("hangzhou").subscribe(new Subscriber<RequestBody>() {
             @Override
             public void onCompleted() {
 

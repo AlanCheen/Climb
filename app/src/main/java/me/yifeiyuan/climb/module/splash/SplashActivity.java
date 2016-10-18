@@ -25,12 +25,11 @@ import com.bumptech.glide.Glide;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
-import me.yifeiyuan.climb.module.main.MainActivity;
 import me.yifeiyuan.climb.R;
-import me.yifeiyuan.climb.network.api.Api;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.base.BaseSubscriber;
 import me.yifeiyuan.climb.data.entity.SplashEntity;
+import me.yifeiyuan.climb.module.main.MainActivity;
 import rx.Observable;
 
 /**
@@ -54,7 +53,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        Api.getIns().getWel()
+        getAppComponent().api().getWel()
                 .subscribe(new BaseSubscriber<SplashEntity>() {
                     @Override
                     public void onNext(SplashEntity welEntity) {

@@ -17,7 +17,6 @@
 package me.yifeiyuan.climb.base;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -43,7 +42,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected View mRootView;
 
-    public Activity mActivity;
+    public BaseActivity mActivity;
     protected CompositeSubscription mSubscriptions;
 
     @Nullable
@@ -51,7 +50,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, mRootView);
-        mActivity = getActivity();
+        mActivity = (BaseActivity) getActivity();
         mSubscriptions = new CompositeSubscription();
         Bundle args = getArguments();
         if (null != args) {

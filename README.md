@@ -4,7 +4,7 @@
 
 ## Features
 
-### Gank.io
+##### Gank.io
 
 <img src="arts/gank_meizi.png" height="860" width="540" />
 
@@ -19,6 +19,10 @@
 - Glide
 - PhotoView
 - CircleImageView
+
+## 架构参考
+
+[CleanArchitecture](https://github.com/android10/Android-CleanArchitecture)  
 
 ## Icon
 
