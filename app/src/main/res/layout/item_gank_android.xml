@@ -2,7 +2,8 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
     android:orientation="horizontal"
     android:background="@color/colorPrimary"
     android:paddingBottom="@dimen/meizi_item_padding"
@@ -16,7 +17,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/meizi_item"
         android:gravity="center_vertical"
-        android:maxLines="1"
         android:textColor="?android:textColorPrimary"
         android:textSize="16sp"
         />

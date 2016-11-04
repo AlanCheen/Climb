@@ -39,11 +39,9 @@ import rx.Subscriber;
 import rx.Subscription;
 
 /**
- *
  * encapsulate refresh & loadmore
- *
  */
-public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OpRecyclerView.OnLoadMoreListener{
+public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OpRecyclerView.OnLoadMoreListener {
 
     @Bind(R.id.rv)
     protected OpRecyclerView mRv;
@@ -72,6 +70,7 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
 
     /**
      * 处理公用的view的初始化
+     *
      * @param savedInstanceState
      */
     @CallSuper
@@ -85,8 +84,8 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
 //                android.R.color.holo_green_light,
 //                android.R.color.holo_red_light);
         mRefresh.setColorSchemeResources(R.color.colorPrimary);
-        mRv.setOnLoadMoreListener(this);
         mRefresh.setOnRefreshListener(this);
+        mRv.setOnLoadMoreListener(this);
         mRv.setLayoutManager(getLayoutManager());
         mRv.setAdapter(getAdapter());
     }
@@ -132,21 +131,22 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
         } else {
             mCurrPage++;
         }
-        Log.d(TAG,"TAG"+TAG+"requestData() called with: " + "isForce = [" + isForce + "], isRefresh = [" + isRefresh + "]");
-        addSubscription(onRequestData(isForce,isRefresh));
+        Log.d(TAG, "TAG" + TAG + "requestData() called with: " + "isForce = [" + isForce + "], isRefresh = [" + isRefresh + "]");
+        addSubscription(onRequestData(isForce, isRefresh));
     }
 
     abstract protected Subscription onRequestData(boolean isForce, boolean isRefresh);
 
     /**
      * 默认处理处理
+     *
      * @param <T>
      */
-    protected class RefreshSubscriber<T> extends Subscriber<T>{
+    protected class RefreshSubscriber<T> extends Subscriber<T> {
 
-        /**是否强制刷新*/
+        /** 是否强制刷新 */
         boolean isForce;
-        /**是否是刷新*/
+        /** 是否是刷新 */
         boolean isRefresh;
 
         protected RefreshSubscriber(boolean isForce, boolean isRefresh) {
@@ -181,8 +181,8 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
 
     @Subscribe
     public void onReturnTop(ReturnTopEvent event) {
-        if (getUserVisibleHint()&&getLayoutManager()instanceof LinearLayoutManager) {
-            ((LinearLayoutManager)getLayoutManager()).scrollToPositionWithOffset(0,0);
+        if (getUserVisibleHint() && getLayoutManager() instanceof LinearLayoutManager) {
+            ((LinearLayoutManager) getLayoutManager()).scrollToPositionWithOffset(0, 0);
         }
     }
 }

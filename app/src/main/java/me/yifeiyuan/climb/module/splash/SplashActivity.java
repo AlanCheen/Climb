@@ -19,6 +19,7 @@ package me.yifeiyuan.climb.module.splash;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -40,6 +41,9 @@ public class SplashActivity extends BaseActivity {
     @Bind(R.id.iv_img)
     ImageView mIv;
 
+    @Bind(R.id.tv_txt)
+    TextView mTvTxt;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_welcome;
@@ -58,6 +62,7 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void onNext(SplashEntity welEntity) {
                         Glide.with(mContext).load(welEntity.img).into(mIv);
+                        mTvTxt.setText(welEntity.text);
                     }
                 });
 
