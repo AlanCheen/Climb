@@ -44,10 +44,10 @@ import rx.Subscription;
 public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, OpRecyclerView.OnLoadMoreListener {
 
     @Bind(R.id.rv)
-    protected OpRecyclerView mRv;
+    protected OpRecyclerView mRecyclerView;
 
     @Bind(R.id.refresh)
-    protected SwipeRefreshLayout mRefresh;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Nullable
     @Bind(R.id.fab)
@@ -78,16 +78,11 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
     protected void initView(@Nullable Bundle savedInstanceState) {
 
         OldDriver.getIns().register(this);
-//        mRefresh.setColorSchemeResources(
-//                android.R.color.holo_blue_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_green_light,
-//                android.R.color.holo_red_light);
-        mRefresh.setColorSchemeResources(R.color.colorPrimary);
-        mRefresh.setOnRefreshListener(this);
-        mRv.setOnLoadMoreListener(this);
-        mRv.setLayoutManager(getLayoutManager());
-        mRv.setAdapter(getAdapter());
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mRecyclerView.setOnLoadMoreListener(this);
+        mRecyclerView.setLayoutManager(getLayoutManager());
+        mRecyclerView.setAdapter(getAdapter());
     }
 
     @Override
@@ -107,18 +102,18 @@ public abstract class RefreshFragment<A extends RecyclerView.Adapter> extends Ba
     }
 
     protected void setRefreshing(boolean refreshing) {
-        mRefresh.setRefreshing(refreshing);
+        mSwipeRefreshLayout.setRefreshing(refreshing);
     }
 
     protected void setLoadMoreComplete() {
-        mRv.setLoadMoreComplete();
+        mRecyclerView.setLoadMoreComplete();
     }
 
     protected abstract A getAdapter();
 
     protected RecyclerView.LayoutManager getLayoutManager() {
-        if (mRv.getLayoutManager() != null) {
-            return mRv.getLayoutManager();
+        if (mRecyclerView.getLayoutManager() != null) {
+            return mRecyclerView.getLayoutManager();
         }
         return new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
     }

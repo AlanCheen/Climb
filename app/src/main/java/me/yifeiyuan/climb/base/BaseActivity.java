@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.app.App;
 import me.yifeiyuan.climb.di.components.AppComponent;
-import me.yifeiyuan.climb.tools.trace.Agent;
 import me.yifeiyuan.swipeback.SwipeBackActivity;
 
 
@@ -61,18 +60,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         }
         initData();
         initView(savedInstanceState);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Agent.onResume(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Agent.onPause(this);
     }
 
     @Override

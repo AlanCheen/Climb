@@ -22,11 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <me.yifeiyuan.climb.ui.view.OPWebView
+        <me.yifeiyuan.climb.ui.view.OpWebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </me.yifeiyuan.climb.ui.view.OPWebView>
+        </me.yifeiyuan.climb.ui.view.OpWebView>
 
         <ProgressBar
             android:id="@+id/progress"

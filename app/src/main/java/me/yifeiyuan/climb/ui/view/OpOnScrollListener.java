@@ -36,7 +36,7 @@ public class OpOnScrollListener extends RecyclerView.OnScrollListener {
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        // if not scrolling down or isLoaring ,then return
+        // if not scrolling down or isLoading ,then return
         if (dy <= 0 || isLoading) {
             return;
         }

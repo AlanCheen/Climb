@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
+
+import me.yifeiyuan.climb.BuildConfig;
 import me.yifeiyuan.climb.di.components.AppComponent;
 import me.yifeiyuan.climb.di.components.DaggerAppComponent;
 import me.yifeiyuan.climb.di.modules.ApiModule;
@@ -31,6 +34,12 @@ public class App extends Application {
                 .appModule(new AppModule(this))
                 .apiModule(new ApiModule())
                 .build();
+
+        if (BuildConfig.DEBUG) {
+            AndroidDevMetrics.initWith(this);
+        }
+
+        AppStatusManager.getInstance().init(this);
 
     }
 

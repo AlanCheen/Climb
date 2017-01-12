@@ -44,19 +44,34 @@
         <activity
             android:name=".module.web.WebActivity"
             android:process=":web"
+            android:taskAffinity=".web"
             android:theme="@style/AppTheme">
         </activity>
+        <!-- android:documentLaunchMode="always" -->
+
         <activity
             android:name=".module.photo.PhotoActivity"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
+
                 <data
                     android:host="photo"
                     android:scheme="climb"/>
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".services.KeepAliveService"
+            android:enabled="true">
+        </service>
+        <service
+            android:name=".services.KeepAliveService$KeepAliveInnerService"
+            android:enabled="true"
+            >
+        </service>
     </application>
 
 </manifest>

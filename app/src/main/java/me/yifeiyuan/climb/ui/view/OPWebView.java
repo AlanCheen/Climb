@@ -13,25 +13,25 @@ import android.webkit.WebViewClient;
 /**
  * Created by 程序亦非猿 on 16/2/18.
  */
-public class OPWebView extends WebView {
+public class OpWebView extends WebView {
 
-    public OPWebView(Context context) {
+    public OpWebView(Context context) {
         super(context);
         init();
     }
 
-    public OPWebView(Context context, AttributeSet attrs) {
+    public OpWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public OPWebView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public OpWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public OPWebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public OpWebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }

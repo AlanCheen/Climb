@@ -54,7 +54,7 @@ public class MeiziFragment extends RefreshFragment<GankMeiziAdapter> {
     @Override
     protected void initView(@Nullable Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mRv.setBackgroundResource(R.color.colorPrimary);
+        mRecyclerView.setBackgroundResource(R.color.colorPrimary);
     }
 
     @Override

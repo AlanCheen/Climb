@@ -38,6 +38,7 @@ import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseActivity;
 import me.yifeiyuan.climb.module.gank.GankFragment;
+import me.yifeiyuan.climb.services.KeepAliveService;
 import me.yifeiyuan.climb.tools.bus.OldDriver;
 import me.yifeiyuan.climb.tools.utils.ChannelUtil;
 import okhttp3.RequestBody;
@@ -88,6 +89,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            addFragment(MeiziFragment.newInstance(),MeiziFragment.TAG);
             addFragment(GankFragment.newInstance(),GankFragment.TAG);
         }
+
+        startService(new Intent(this, KeepAliveService.class));
     }
 
     private void setupDrawer() {

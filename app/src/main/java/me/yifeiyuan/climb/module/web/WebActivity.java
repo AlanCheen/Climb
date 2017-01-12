@@ -31,7 +31,7 @@ import android.widget.ProgressBar;
 import butterknife.Bind;
 import me.yifeiyuan.climb.R;
 import me.yifeiyuan.climb.base.BaseActivity;
-import me.yifeiyuan.climb.ui.view.OPWebView;
+import me.yifeiyuan.climb.ui.view.OpWebView;
 import me.yifeiyuan.climb.ui.widget.ToastUtil;
 
 public class WebActivity extends BaseActivity {
@@ -39,7 +39,7 @@ public class WebActivity extends BaseActivity {
     private static final String KEY_URL = "key_url";
 
     @Bind(R.id.webview)
-    OPWebView mWebview;
+    OpWebView mWebview;
 
     @Bind(R.id.progress)
     ProgressBar mProgressBar;
@@ -48,6 +48,11 @@ public class WebActivity extends BaseActivity {
     public static void comeOn(Context context, String url) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(KEY_URL, url);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        // TODO: 16/11/30 加一个配置
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//        }
         context.startActivity(intent);
     }
 
@@ -68,7 +73,7 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        mWebview.setCallback(new OPWebView.Callback() {
+        mWebview.setCallback(new OpWebView.Callback() {
             @Override
             public void onProgressChanged(int newProgress) {
 

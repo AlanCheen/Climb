@@ -18,7 +18,6 @@ package me.yifeiyuan.climb.module.gank;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
@@ -28,9 +27,9 @@ import me.yifeiyuan.climb.data.entity.GankEntity;
 import rx.Subscription;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link IosFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
+ * gank.io iOS 内容
+ *
  */
 public class IosFragment extends RefreshFragment<GankAdapter> {
 
@@ -38,9 +37,6 @@ public class IosFragment extends RefreshFragment<GankAdapter> {
     private ArrayList<GankEntity> mDatas;
     private boolean canLoadmore;
 
-    /**
-     * @return A new instance of fragment IosFragment.
-     */
     public static IosFragment newInstance() {
         IosFragment fragment = new IosFragment();
         Bundle args = new Bundle();
