@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 public class KeepAliveService extends Service {
 
 
-    private static final int SERVICE_ID = 538;
+    private static final int SERVICE_ID = 666;
 
     public KeepAliveService() {
     }
