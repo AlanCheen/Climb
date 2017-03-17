@@ -14,6 +14,7 @@
         android:id="@+id/iv_meizi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
         android:scaleType="centerCrop"
         app:ratio="0.618"
         />

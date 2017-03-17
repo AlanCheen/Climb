@@ -41,6 +41,8 @@ import me.yifeiyuan.climb.module.gank.GankFragment;
 import me.yifeiyuan.climb.services.KeepAliveService;
 import me.yifeiyuan.climb.tools.bus.OldDriver;
 import me.yifeiyuan.climb.tools.utils.ChannelUtil;
+import me.yifeiyuan.climb.tools.utils.DeviceUtil;
+import me.yifeiyuan.climb.ui.widget.ToastUtil;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
@@ -105,6 +107,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onResume();
         String channel = AnalyticsConfig.getChannel(this);
         Log.d(TAG, "onResume: "+channel);
+
+        ToastUtil.show(this, DeviceUtil.getIMEI(this));
 
         getAppComponent().api().getWeather("hangzhou").subscribe(new Subscriber<RequestBody>() {
             @Override

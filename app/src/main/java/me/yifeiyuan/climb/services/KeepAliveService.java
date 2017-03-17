@@ -7,6 +7,9 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+/**
+ * 灰色保活
+ */
 public class KeepAliveService extends Service {
 
 
